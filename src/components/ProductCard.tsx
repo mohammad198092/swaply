@@ -6,6 +6,7 @@ import { RatingSystem } from "./RatingSystem";
 import { Badge } from "@/components/ui/badge";
 import { Repeat, ShoppingBag } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -42,10 +43,19 @@ export const ProductCard = ({
   formatCurrency
 }: ProductCardProps) => {
   const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageError = () => {
     console.log('فشل تحميل الصورة:', product.image);
     setImageError(true);
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // تجنب التنقل إذا تم النقر على الأزرار
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    navigate(`/product/${product.id}`);
   };
 
   const getStatusBadge = () => {
@@ -76,7 +86,10 @@ export const ProductCard = ({
   };
 
   return (
-    <Card className="group relative flex flex-col h-full overflow-hidden hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-1 dark:bg-gray-800 animate-fade-in">
+    <Card 
+      className="group relative flex flex-col h-full overflow-hidden hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-1 dark:bg-gray-800 animate-fade-in cursor-pointer"
+      onClick={handleCardClick}
+    >
       <CardHeader className="flex-none relative p-4 md:p-6 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-700">
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2 group-hover:text-primary-dark transition-colors">
