@@ -5,6 +5,7 @@ import { ProductPrice } from "./ProductPrice";
 import { RatingSystem } from "./RatingSystem";
 import { Badge } from "@/components/ui/badge";
 import { Repeat } from "lucide-react";
+import { useState } from "react";
 
 interface Product {
   id: number;
@@ -39,6 +40,13 @@ export const ProductCard = ({
   onFavorite,
   formatCurrency
 }: ProductCardProps) => {
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    console.log('فشل تحميل الصورة:', product.image);
+    setImageError(true);
+  };
+
   return (
     <Card className="group relative flex flex-col h-full overflow-hidden hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-1 dark:bg-gray-800 animate-fade-in">
       <CardHeader className="flex-none relative p-4 md:p-6 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-700">
@@ -61,12 +69,19 @@ export const ProductCard = ({
       </CardHeader>
       <CardContent className="flex-grow flex flex-col p-3 md:p-6">
         <div className="relative aspect-square mb-3 md:mb-4 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
-            loading="lazy"
-          />
+          {!imageError ? (
+            <img
+              src={product.image}
+              alt={product.title}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+              loading="lazy"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400">
+              صورة غير متوفرة
+            </div>
+          )}
           <ProductActions
             onAddToCart={() => onAddToCart(product)}
             onShare={() => onShare(product)}

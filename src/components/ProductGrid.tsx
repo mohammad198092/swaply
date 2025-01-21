@@ -3,6 +3,7 @@ import { useLanguage } from '@/lib/language-context';
 import { translations } from '@/lib/translations';
 import { useToast } from "@/hooks/use-toast";
 import { ProductCard } from "./ProductCard";
+import { Loader2 } from "lucide-react";
 
 interface Product {
   id: number;
@@ -18,6 +19,7 @@ interface Product {
 
 export const ProductGrid = () => {
   const [ratings, setRatings] = useState<{ [key: number]: number }>({});
+  const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguage();
   const t = translations[language];
   const { toast } = useToast();
@@ -97,6 +99,14 @@ export const ProductGrid = () => {
     }
   ];
 
+  // Simulate loading state
+  useState(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
+
   const handleRatingChange = (productId: number, rating: number) => {
     setRatings(prev => ({
       ...prev,
@@ -135,6 +145,22 @@ export const ProductGrid = () => {
       description: `تمت إضافة ${product.title} إلى المفضلة`,
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-lg text-gray-500">لا توجد منتجات متاحة حالياً</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-2 md:px-4 py-4 md:py-8">
