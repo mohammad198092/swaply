@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import {
   Carousel,
