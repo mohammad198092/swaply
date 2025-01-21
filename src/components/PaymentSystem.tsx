@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreditCard } from "lucide-react";
+import { CreditCard, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,9 +13,9 @@ import { toast } from "sonner";
 
 interface PaymentMethod {
   id: string;
-  type: 'card';
+  type: 'card' | 'apple_pay' | 'google_pay';
   name: string;
-  icon: typeof CreditCard;
+  icon: typeof CreditCard | typeof Smartphone;
 }
 
 export const PaymentSystem = () => {
@@ -23,6 +23,8 @@ export const PaymentSystem = () => {
   
   const paymentMethods: PaymentMethod[] = [
     { id: "card", type: "card", name: "بطاقة ائتمانية", icon: CreditCard },
+    { id: "apple_pay", type: "apple_pay", name: "Apple Pay", icon: Smartphone },
+    { id: "google_pay", type: "google_pay", name: "Google Pay", icon: Smartphone },
   ];
 
   const handlePayment = () => {
@@ -32,7 +34,19 @@ export const PaymentSystem = () => {
     }
     
     console.log("تم اختيار طريقة الدفع:", selectedMethod);
-    toast.success("تم تأكيد عملية الدفع بنجاح!");
+
+    switch (selectedMethod) {
+      case 'apple_pay':
+        console.log("بدء عملية الدفع عبر Apple Pay");
+        toast.success("تم بدء عملية الدفع عبر Apple Pay");
+        break;
+      case 'google_pay':
+        console.log("بدء عملية الدفع عبر Google Pay");
+        toast.success("تم بدء عملية الدفع عبر Google Pay");
+        break;
+      default:
+        toast.success("تم تأكيد عملية الدفع بنجاح!");
+    }
   };
 
   return (
@@ -42,7 +56,7 @@ export const PaymentSystem = () => {
         <CardDescription>اختر طريقة الدفع المناسبة</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {paymentMethods.map((method) => (
             <Button
               key={method.id}
