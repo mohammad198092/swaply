@@ -8,7 +8,8 @@ export const products = [
     discount: 10,
     isNew: true,
     isExchangeable: true,
-    exchangeDescription: "آيفون 13 برو أو ما يعادله"
+    exchangeDescription: "آيفون 13 برو أو ما يعادله",
+    status: 'available'
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ export const products = [
     description: "حاسوب محمول احترافي مع معالج M2 وشاشة Retina",
     isNew: true,
     isExchangeable: true,
-    exchangeDescription: "ماك بوك برو 2021 أو ما يعادله"
+    exchangeDescription: "ماك بوك برو 2021 أو ما يعادله",
+    status: 'sold'
   },
   {
     id: 3,

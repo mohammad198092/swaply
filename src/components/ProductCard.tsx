@@ -4,7 +4,7 @@ import { ProductActions } from "./ProductActions";
 import { ProductPrice } from "./ProductPrice";
 import { RatingSystem } from "./RatingSystem";
 import { Badge } from "@/components/ui/badge";
-import { Repeat } from "lucide-react";
+import { Repeat, SwapHorizontal, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 
 interface Product {
@@ -17,6 +17,7 @@ interface Product {
   isNew?: boolean;
   isExchangeable?: boolean;
   exchangeDescription?: string;
+  status?: 'swapped' | 'sold' | 'available';
 }
 
 interface ProductCardProps {
@@ -47,12 +48,42 @@ export const ProductCard = ({
     setImageError(true);
   };
 
+  const getStatusBadge = () => {
+    if (!product.status || product.status === 'available') return null;
+
+    const statusConfig = {
+      swapped: {
+        icon: <SwapHorizontal className="h-3 w-3 mr-1" />,
+        text: 'تم التبديل',
+        className: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+      },
+      sold: {
+        icon: <ShoppingBag className="h-3 w-3 mr-1" />,
+        text: 'تم البيع',
+        className: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+      }
+    };
+
+    const config = statusConfig[product.status];
+    if (!config) return null;
+
+    return (
+      <div className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.className} animate-fade-in`}>
+        {config.icon}
+        {config.text}
+      </div>
+    );
+  };
+
   return (
     <Card className="group relative flex flex-col h-full overflow-hidden hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-1 dark:bg-gray-800 animate-fade-in">
       <CardHeader className="flex-none relative p-4 md:p-6 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-700">
-        <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2 group-hover:text-primary-dark transition-colors">
-          {product.title}
-        </CardTitle>
+        <div className="flex justify-between items-start">
+          <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2 group-hover:text-primary-dark transition-colors">
+            {product.title}
+          </CardTitle>
+          {getStatusBadge()}
+        </div>
         <div className="flex flex-wrap gap-2 mt-2">
           <ProductBadges
             isNew={product.isNew}
