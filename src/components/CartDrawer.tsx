@@ -11,6 +11,7 @@ import {
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 
 interface CartItem {
   id: number;
@@ -41,14 +42,14 @@ export const CartDrawer = ({
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     return items.reduce((total, item) => {
       const itemPrice = item.discount
         ? item.price - (item.price * item.discount) / 100
         : item.price;
       return total + itemPrice * item.quantity;
     }, 0);
-  };
+  }, [items]);
 
   const handleCheckout = () => {
     console.log("التحويل إلى صفحة الدفع");
@@ -58,6 +59,16 @@ export const CartDrawer = ({
     });
     onClose();
     navigate('/payment');
+  };
+
+  const handleQuantityUpdate = (id: number, newQuantity: number) => {
+    console.log(`تحديث الكمية للمنتج ${id} إلى ${newQuantity}`);
+    onUpdateQuantity(id, Math.max(0, newQuantity));
+  };
+
+  const handleRemoveItem = (id: number) => {
+    console.log(`حذف المنتج ${id} من السلة`);
+    onRemoveItem(id);
   };
 
   return (
@@ -82,6 +93,7 @@ export const CartDrawer = ({
                 src={item.image}
                 alt={item.title}
                 className="h-20 w-20 rounded-lg object-cover"
+                loading="lazy"
               />
               <div className="flex-1">
                 <h3 className="font-semibold">{item.title}</h3>
@@ -92,9 +104,8 @@ export const CartDrawer = ({
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() =>
-                      onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))
-                    }
+                    onClick={() => handleQuantityUpdate(item.id, item.quantity - 1)}
+                    disabled={item.quantity <= 1}
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
@@ -102,7 +113,7 @@ export const CartDrawer = ({
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                    onClick={() => handleQuantityUpdate(item.id, item.quantity + 1)}
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
@@ -110,7 +121,7 @@ export const CartDrawer = ({
                     variant="destructive"
                     size="icon"
                     className="mr-auto"
-                    onClick={() => onRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item.id)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

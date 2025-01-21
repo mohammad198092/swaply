@@ -21,6 +21,9 @@ interface PaymentMethod {
 export const PaymentSystem = () => {
   const [selectedMethod, setSelectedMethod] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
   
   const paymentMethods: PaymentMethod[] = [
     { id: "card", type: "card", name: "بطاقة ائتمانية", icon: CreditCard },
@@ -28,11 +31,27 @@ export const PaymentSystem = () => {
     { id: "google_pay", type: "google_pay", name: "Google Pay", icon: Smartphone },
   ];
 
+  const validateCardDetails = () => {
+    if (selectedMethod === "card") {
+      if (!cardNumber || !expiryDate || !cvv) {
+        toast.error("الرجاء إدخال جميع بيانات البطاقة");
+        return false;
+      }
+      if (cardNumber.length < 16) {
+        toast.error("رقم البطاقة غير صحيح");
+        return false;
+      }
+      if (cvv.length < 3) {
+        toast.error("رمز CVV غير صحيح");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const simulatePayment = () => {
     return new Promise((resolve) => {
-      // محاكاة وقت المعالجة
       setTimeout(() => {
-        // محاكاة نجاح العملية بنسبة 80%
         const isSuccess = Math.random() < 0.8;
         resolve(isSuccess);
       }, 2000);
@@ -42,6 +61,10 @@ export const PaymentSystem = () => {
   const handlePayment = async () => {
     if (!selectedMethod) {
       toast.error("الرجاء اختيار طريقة دفع");
+      return;
+    }
+
+    if (!validateCardDetails()) {
       return;
     }
     
@@ -74,11 +97,16 @@ export const PaymentSystem = () => {
       toast.error("عذراً، فشلت عملية الدفع. الرجاء المحاولة مرة أخرى");
     } finally {
       setIsProcessing(false);
+      if (selectedMethod === "card") {
+        setCardNumber("");
+        setExpiryDate("");
+        setCvv("");
+      }
     }
   };
 
   return (
-    <Card>
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader>
         <CardTitle>الدفع الآمن</CardTitle>
         <CardDescription>اختر طريقة الدفع المناسبة</CardDescription>
@@ -100,11 +128,40 @@ export const PaymentSystem = () => {
         </div>
         
         {selectedMethod === "card" && (
-          <div className="space-y-4">
-            <Input placeholder="رقم البطاقة" disabled={isProcessing} />
+          <div className="space-y-4 animate-fade-in">
+            <Input
+              placeholder="رقم البطاقة"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, '').slice(0, 16))}
+              disabled={isProcessing}
+              type="text"
+              maxLength={16}
+            />
             <div className="grid grid-cols-2 gap-4">
-              <Input placeholder="تاريخ الانتهاء" disabled={isProcessing} />
-              <Input placeholder="CVV" type="password" maxLength={3} disabled={isProcessing} />
+              <Input
+                placeholder="تاريخ الانتهاء (MM/YY)"
+                value={expiryDate}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  if (value.length <= 4) {
+                    setExpiryDate(
+                      value.length > 2 
+                        ? value.slice(0, 2) + '/' + value.slice(2)
+                        : value
+                    );
+                  }
+                }}
+                disabled={isProcessing}
+                maxLength={5}
+              />
+              <Input
+                placeholder="CVV"
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
+                type="password"
+                maxLength={3}
+                disabled={isProcessing}
+              />
             </div>
           </div>
         )}
