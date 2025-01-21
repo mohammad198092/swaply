@@ -29,37 +29,45 @@ export const ProductGrid = () => {
       ...prev,
       [productId]: rating
     }));
-    console.log(`تم تغيير تقييم المنتج ${productId} إلى:`, rating);
+    console.log(`Rating changed for product ${productId} to:`, rating);
   };
 
   const formatCurrency = (price: number, discount?: number) => {
-    const finalPrice = discount ? price - (price * discount / 100) : price;
+    // Calculate price after discount if applicable
+    const priceAfterDiscount = discount ? price - (price * discount / 100) : price;
+    
+    // Add 10% administrative fee
+    const adminFee = priceAfterDiscount * 0.10;
+    const finalPrice = priceAfterDiscount + adminFee;
+    
+    console.log(`Original price: ${price}, After discount: ${priceAfterDiscount}, Admin fee: ${adminFee}, Final price: ${finalPrice}`);
+    
     return language === 'ar' 
-      ? `${finalPrice} ${t.currency}`
-      : `$${finalPrice}`;
+      ? `${finalPrice.toFixed(2)} ${t.currency}`
+      : `$${finalPrice.toFixed(2)}`;
   };
 
   const handleAddToCart = (product: any) => {
-    console.log('تمت إضافة المنتج للسلة:', product);
+    console.log('Product added to cart:', product);
     toast({
-      title: "تمت الإضافة للسلة",
-      description: `تمت إضافة ${product.title} إلى سلة التسوق`,
+      title: "Added to Cart",
+      description: `${product.title} has been added to your cart`,
     });
   };
 
   const handleShare = (product: any) => {
-    console.log('تمت مشاركة المنتج:', product);
+    console.log('Product shared:', product);
     toast({
-      title: "مشاركة المنتج",
-      description: `تمت مشاركة ${product.title}`,
+      title: "Share Product",
+      description: `${product.title} has been shared`,
     });
   };
 
   const handleFavorite = (product: any) => {
-    console.log('تمت إضافة المنتج للمفضلة:', product);
+    console.log('Product added to favorites:', product);
     toast({
-      title: "المفضلة",
-      description: `تمت إضافة ${product.title} إلى المفضلة`,
+      title: "Favorites",
+      description: `${product.title} has been added to favorites`,
     });
   };
 
