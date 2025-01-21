@@ -14,7 +14,7 @@ export const products = [
     isNew: true,
     isExchangeable: true,
     exchangeDescription: "آيفون 13 برو أو ما يعادله",
-    status: 'available',
+    status: 'available' as const,
     seller: {
       id: 1,
       name: "أحمد محمد",
@@ -31,7 +31,7 @@ export const products = [
     isNew: true,
     isExchangeable: true,
     exchangeDescription: "ماك بوك برو 2021 أو ما يعادله",
-    status: 'sold',
+    status: 'sold' as const,
     seller: {
       id: 2,
       name: "سارة أحمد",
@@ -46,6 +46,7 @@ export const products = [
     image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
     description: "سماعات لاسلكية مع خاصية إلغاء الضوضاء",
     discount: 15,
+    status: 'available' as const,
     seller: {
       id: 3,
       name: "محمد علي",
@@ -60,6 +61,7 @@ export const products = [
     image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
     description: "ساعة ذكية متطورة مع مزايا صحية وتتبع النشاط",
     isNew: true,
+    status: 'available' as const,
     seller: {
       id: 4,
       name: "علي حسن",
@@ -75,6 +77,7 @@ export const products = [
     description: "جهاز لوحي متطور مثالي للرسم الرقمي والإنتاجية",
     isNew: true,
     discount: 5,
+    status: 'available' as const,
     seller: {
       id: 5,
       name: "فاطمة الزهراء",
@@ -90,6 +93,7 @@ export const products = [
     description: "هاتف أندرويد رائد مع كاميرا احترافية وأداء استثنائي",
     isExchangeable: true,
     exchangeDescription: "آيفون 14 برو أو ما يعادله",
+    status: 'available' as const,
     seller: {
       id: 6,
       name: "يوسف سعيد",
@@ -104,6 +108,7 @@ export const products = [
     image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db",
     description: "منصة ألعاب متطورة مع تحكم لمسي متقدم وجرافيكس عالي الدقة",
     discount: 8,
+    status: 'available' as const,
     seller: {
       id: 7,
       name: "علياء محمد",
@@ -119,6 +124,7 @@ export const products = [
     description: "تلفاز ذكي بشاشة OLED مقاس 65 بوصة ودقة 4K",
     isNew: true,
     discount: 12,
+    status: 'available' as const,
     seller: {
       id: 8,
       name: "سالم عبدالله",
