@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, useContext } from 'react';
+import { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 
 export type Language = 'ar' | 'en';
 
@@ -12,11 +12,21 @@ export const LanguageContext = createContext<LanguageContextType | undefined>(un
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('ar');
 
+  useEffect(() => {
+    // Set initial direction based on language
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = language;
+    console.log('Initial language set to:', language);
+  }, []);
+
   const toggleLanguage = () => {
-    const newLang = language === 'ar' ? 'en' : 'ar';
-    setLanguage(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
+    setLanguage((prevLang) => {
+      const newLang = prevLang === 'ar' ? 'en' : 'ar';
+      document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = newLang;
+      console.log('Language toggled to:', newLang);
+      return newLang;
+    });
   };
 
   return (

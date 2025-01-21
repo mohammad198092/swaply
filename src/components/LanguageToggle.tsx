@@ -2,22 +2,36 @@ import { useContext } from 'react';
 import { Button } from "@/components/ui/button";
 import { Languages } from 'lucide-react';
 import { LanguageContext } from '@/lib/language-context';
+import { useToast } from "@/hooks/use-toast";
 
 export const LanguageToggle = () => {
   const { language, toggleLanguage } = useContext(LanguageContext);
+  const { toast } = useToast();
+  
   if (!language || !toggleLanguage) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
+
+  const handleLanguageToggle = () => {
+    toggleLanguage();
+    console.log('Language changed to:', language === 'ar' ? 'en' : 'ar');
+    
+    toast({
+      title: language === 'ar' ? "Language Changed" : "تم تغيير اللغة",
+      description: language === 'ar' ? "Switched to English" : "تم التغيير إلى العربية",
+      duration: 2000,
+    });
+  };
 
   return (
     <Button 
       variant="ghost" 
       size="icon"
-      onClick={toggleLanguage}
-      className="fixed top-4 right-4"
+      onClick={handleLanguageToggle}
+      className="fixed top-4 right-4 flex items-center gap-2"
     >
       <Languages className="h-5 w-5" />
-      <span className="ml-2">{language === 'ar' ? 'EN' : 'عربي'}</span>
+      <span>{language === 'ar' ? 'EN' : 'عربي'}</span>
     </Button>
   );
 };
