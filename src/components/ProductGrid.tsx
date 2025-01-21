@@ -14,9 +14,9 @@ export const ProductGrid = () => {
   const t = translations[language];
   const { toast } = useToast();
 
-  // Simulate loading state
   useEffect(() => {
     console.log('Loading products...');
+    console.log('Available products:', products);
     const timer = setTimeout(() => {
       setIsLoading(false);
       console.log('Products loaded!');
@@ -67,7 +67,7 @@ export const ProductGrid = () => {
     return <LoadingState />;
   }
 
-  if (products.length === 0) {
+  if (!products || products.length === 0) {
     return <EmptyState />;
   }
 
