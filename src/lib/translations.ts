@@ -42,8 +42,7 @@ export const translations = {
     },
     rating: "التقييم",
     ratingSuccess: "تم التقييم بنجاح",
-    ratingDescription: "لقد قمت بتقييم المنتج",
-    currency: "ريال"
+    ratingDescription: "لقد قمت بتقييم المنتج"
   },
   en: {
     title: "Swaply",
@@ -88,7 +87,6 @@ export const translations = {
     },
     rating: "Rating",
     ratingSuccess: "Thank you for rating!",
-    ratingDescription: "You rated this product",
-    currency: "USD"
+    ratingDescription: "You rated this product"
   }
 };
