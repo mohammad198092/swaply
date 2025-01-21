@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -18,6 +19,8 @@ export const ProductForm = () => {
   const [price, setPrice] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isExchangeable, setIsExchangeable] = useState(false);
+  const [exchangeDescription, setExchangeDescription] = useState('');
 
   const categories = [
     'إلكترونيات',
@@ -122,6 +125,28 @@ export const ProductForm = () => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <label className="text-lg">قابل للمبادلة</label>
+            <Switch
+              checked={isExchangeable}
+              onCheckedChange={setIsExchangeable}
+            />
+          </div>
+          
+          {isExchangeable && (
+            <div>
+              <label className="block text-lg mb-2">ما الذي تريد مبادلته به؟</label>
+              <Textarea
+                placeholder="اذكر المنتجات التي ترغب في مبادلة منتجك بها..."
+                value={exchangeDescription}
+                onChange={(e) => setExchangeDescription(e.target.value)}
+                rows={3}
+              />
+            </div>
+          )}
         </div>
 
         <div>
