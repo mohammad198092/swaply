@@ -23,6 +23,8 @@ import { NotificationSystem } from "@/components/NotificationSystem";
 import { PaymentSystem } from "@/components/PaymentSystem";
 import { LoyaltyProgram } from "@/components/LoyaltyProgram";
 import { CustomerSupport } from "@/components/CustomerSupport";
+import { ProductPrice } from "@/components/ProductPrice";
+import { SocialShare } from "@/components/SocialShare";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -70,6 +72,14 @@ const Index = () => {
     }
   ];
 
+  const formatCurrency = (price: number, discount?: number) => {
+    const finalPrice = discount ? price - (price * discount) / 100 : price;
+    return new Intl.NumberFormat(language === 'ar' ? 'ar-SA' : 'en-US', {
+      style: 'currency',
+      currency: 'SAR'
+    }).format(finalPrice);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="fixed top-4 right-4 z-50">
@@ -100,6 +110,16 @@ const Index = () => {
             <UserVerification />
             <NotificationSystem />
             <LoyaltyProgram />
+            <ProductPrice
+              price={1500}
+              discount={10}
+              language={language}
+              formatCurrency={formatCurrency}
+            />
+            <SocialShare
+              title="منتج رائع من سوابلي"
+              url={window.location.href}
+            />
           </div>
           <div className="space-y-4">
             <AuctionSystem
