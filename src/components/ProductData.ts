@@ -14,7 +14,13 @@ export const products = [
     isNew: true,
     isExchangeable: true,
     exchangeDescription: "آيفون 13 برو أو ما يعادله",
-    status: 'available'
+    status: 'available',
+    seller: {
+      id: 1,
+      name: "أحمد محمد",
+      avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d",
+      rating: 4.8
+    }
   },
   {
     id: 2,
@@ -25,7 +31,13 @@ export const products = [
     isNew: true,
     isExchangeable: true,
     exchangeDescription: "ماك بوك برو 2021 أو ما يعادله",
-    status: 'sold'
+    status: 'sold',
+    seller: {
+      id: 2,
+      name: "سارة أحمد",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      rating: 4.5
+    }
   },
   {
     id: 3,
@@ -33,7 +45,13 @@ export const products = [
     price: 999,
     image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
     description: "سماعات لاسلكية مع خاصية إلغاء الضوضاء",
-    discount: 15
+    discount: 15,
+    seller: {
+      id: 3,
+      name: "محمد علي",
+      avatar: "https://images.unsplash.com/photo-1506794778160-0c170b8c3c8b",
+      rating: 4.7
+    }
   },
   {
     id: 4,
@@ -41,7 +59,13 @@ export const products = [
     price: 1999,
     image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
     description: "ساعة ذكية متطورة مع مزايا صحية وتتبع النشاط",
-    isNew: true
+    isNew: true,
+    seller: {
+      id: 4,
+      name: "علي حسن",
+      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+      rating: 4.6
+    }
   },
   {
     id: 5,
@@ -50,7 +74,13 @@ export const products = [
     image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0",
     description: "جهاز لوحي متطور مثالي للرسم الرقمي والإنتاجية",
     isNew: true,
-    discount: 5
+    discount: 5,
+    seller: {
+      id: 5,
+      name: "فاطمة الزهراء",
+      avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+      rating: 4.9
+    }
   },
   {
     id: 6,
@@ -59,7 +89,13 @@ export const products = [
     image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf",
     description: "هاتف أندرويد رائد مع كاميرا احترافية وأداء استثنائي",
     isExchangeable: true,
-    exchangeDescription: "آيفون 14 برو أو ما يعادله"
+    exchangeDescription: "آيفون 14 برو أو ما يعادله",
+    seller: {
+      id: 6,
+      name: "يوسف سعيد",
+      avatar: "https://images.unsplash.com/photo-1506794778160-0c170b8c3c8b",
+      rating: 4.4
+    }
   },
   {
     id: 7,
@@ -67,7 +103,13 @@ export const products = [
     price: 2199,
     image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db",
     description: "منصة ألعاب متطورة مع تحكم لمسي متقدم وجرافيكس عالي الدقة",
-    discount: 8
+    discount: 8,
+    seller: {
+      id: 7,
+      name: "علياء محمد",
+      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+      rating: 4.8
+    }
   },
   {
     id: 8,
@@ -76,6 +118,12 @@ export const products = [
     image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1",
     description: "تلفاز ذكي بشاشة OLED مقاس 65 بوصة ودقة 4K",
     isNew: true,
-    discount: 12
+    discount: 12,
+    seller: {
+      id: 8,
+      name: "سالم عبدالله",
+      avatar: "https://images.unsplash.com/photo-1506794778160-0c170b8c3c8b",
+      rating: 4.5
+    }
   }
 ];

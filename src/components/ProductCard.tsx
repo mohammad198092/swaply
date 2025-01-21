@@ -3,6 +3,7 @@ import { ProductBadges } from "./ProductBadges";
 import { ProductActions } from "./ProductActions";
 import { ProductPrice } from "./ProductPrice";
 import { RatingSystem } from "./RatingSystem";
+import { SellerInfo } from "./SellerInfo";
 import { Badge } from "@/components/ui/badge";
 import { Repeat, ShoppingBag } from "lucide-react";
 import { useState } from "react";
@@ -19,6 +20,12 @@ interface Product {
   isExchangeable?: boolean;
   exchangeDescription?: string;
   status?: 'swapped' | 'sold' | 'available';
+  seller: {
+    id: number;
+    name: string;
+    avatar: string;
+    rating: number;
+  };
 }
 
 interface ProductCardProps {
@@ -51,8 +58,9 @@ export const ProductCard = ({
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
-    // تجنب التنقل إذا تم النقر على الأزرار
-    if ((e.target as HTMLElement).closest('button')) {
+    // تجنب التنقل إذا تم النقر على الأزرار أو معلومات البائع
+    if ((e.target as HTMLElement).closest('button') || 
+        (e.target as HTMLElement).closest('.seller-info')) {
       return;
     }
     navigate(`/product/${product.id}`);
@@ -155,6 +163,9 @@ export const ProductCard = ({
               rating={rating}
               onRatingChange={onRatingChange}
             />
+          </div>
+          <div className="seller-info border-t pt-2">
+            <SellerInfo seller={product.seller} />
           </div>
         </div>
       </CardContent>
