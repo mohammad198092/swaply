@@ -12,6 +12,8 @@ interface Product {
   description: string;
   discount?: number;
   isNew?: boolean;
+  isExchangeable?: boolean;
+  exchangeDescription?: string;
 }
 
 export const ProductGrid = () => {
@@ -23,28 +25,40 @@ export const ProductGrid = () => {
   const products: Product[] = [
     {
       id: 1,
-      title: t.products.smartphone.title,
-      price: 999,
-      image: "/placeholder.svg",
-      description: t.products.smartphone.description,
+      title: "آيفون 14 برو ماكس",
+      price: 4999,
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+      description: "هاتف ذكي متطور مع كاميرا احترافية وشاشة عالية الدقة",
       discount: 10,
-      isNew: true
+      isNew: true,
+      isExchangeable: true,
+      exchangeDescription: "آيفون 13 برو أو ما يعادله"
     },
     {
       id: 2,
-      title: t.products.laptop.title,
-      price: 1499,
-      image: "/placeholder.svg",
-      description: t.products.laptop.description,
-      isNew: true
+      title: "ماك بوك برو M2",
+      price: 8999,
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      description: "حاسوب محمول احترافي مع معالج M2 وشاشة Retina",
+      isNew: true,
+      isExchangeable: true,
+      exchangeDescription: "ماك بوك برو 2021 أو ما يعادله"
     },
     {
       id: 3,
-      title: t.products.headphones.title,
-      price: 199,
-      image: "/placeholder.svg",
-      description: t.products.headphones.description,
+      title: "سماعات آبل AirPods Pro",
+      price: 999,
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+      description: "سماعات لاسلكية مع خاصية إلغاء الضوضاء",
       discount: 15
+    },
+    {
+      id: 4,
+      title: "ساعة آبل الإصدار 8",
+      price: 1999,
+      image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+      description: "ساعة ذكية متطورة مع مزايا صحية وتتبع النشاط",
+      isNew: true
     }
   ];
 
@@ -53,7 +67,7 @@ export const ProductGrid = () => {
       ...prev,
       [productId]: rating
     }));
-    console.log(`Rating for product ${productId} changed to:`, rating);
+    console.log(`تم تغيير تقييم المنتج ${productId} إلى:`, rating);
   };
 
   const formatCurrency = (price: number, discount?: number) => {
@@ -64,32 +78,26 @@ export const ProductGrid = () => {
   };
 
   const handleAddToCart = (product: Product) => {
-    console.log('Adding to cart:', product);
+    console.log('تمت إضافة المنتج للسلة:', product);
     toast({
-      title: language === 'ar' ? "تمت الإضافة للسلة" : "Added to Cart",
-      description: language === 'ar' 
-        ? `تمت إضافة ${product.title} إلى سلة التسوق`
-        : `${product.title} has been added to your cart`,
+      title: "تمت الإضافة للسلة",
+      description: `تمت إضافة ${product.title} إلى سلة التسوق`,
     });
   };
 
   const handleShare = (product: Product) => {
-    console.log('Sharing product:', product);
+    console.log('تمت مشاركة المنتج:', product);
     toast({
-      title: language === 'ar' ? "مشاركة المنتج" : "Share Product",
-      description: language === 'ar' 
-        ? `تمت مشاركة ${product.title}`
-        : `${product.title} has been shared`,
+      title: "مشاركة المنتج",
+      description: `تمت مشاركة ${product.title}`,
     });
   };
 
   const handleFavorite = (product: Product) => {
-    console.log('Adding to favorites:', product);
+    console.log('تمت إضافة المنتج للمفضلة:', product);
     toast({
-      title: language === 'ar' ? "المفضلة" : "Favorites",
-      description: language === 'ar' 
-        ? `تمت إضافة ${product.title} إلى المفضلة`
-        : `${product.title} has been added to favorites`,
+      title: "المفضلة",
+      description: `تمت إضافة ${product.title} إلى المفضلة`,
     });
   };
 
