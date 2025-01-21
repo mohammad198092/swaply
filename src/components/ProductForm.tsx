@@ -15,12 +15,14 @@ import { ExchangeSection } from './ExchangeSection';
 import { LocationInput } from './LocationInput';
 import { RatingSystem } from './RatingSystem';
 import { InteractionButtons } from './InteractionButtons';
+import { SocialShare } from './SocialShare';
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+  const [title, setTitle] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isExchangeable, setIsExchangeable] = useState(false);
@@ -49,7 +51,11 @@ export const ProductForm = () => {
 
         <div>
           <label className="block text-lg mb-2">عنوان المنتج</label>
-          <Input placeholder="أدخل عنوان المنتج" />
+          <Input 
+            placeholder="أدخل عنوان المنتج" 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
 
         <div>
@@ -102,6 +108,8 @@ export const ProductForm = () => {
               onFavoriteClick={handleFavoriteClick}
             />
           </div>
+
+          <SocialShare title={title} />
         </div>
       </form>
     </div>
