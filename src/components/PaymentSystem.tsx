@@ -20,6 +20,7 @@ interface PaymentMethod {
 
 export const PaymentSystem = () => {
   const [selectedMethod, setSelectedMethod] = useState<string>("");
+  const [isProcessing, setIsProcessing] = useState(false);
   
   const paymentMethods: PaymentMethod[] = [
     { id: "card", type: "card", name: "بطاقة ائتمانية", icon: CreditCard },
@@ -27,25 +28,52 @@ export const PaymentSystem = () => {
     { id: "google_pay", type: "google_pay", name: "Google Pay", icon: Smartphone },
   ];
 
-  const handlePayment = () => {
+  const simulatePayment = () => {
+    return new Promise((resolve) => {
+      // محاكاة وقت المعالجة
+      setTimeout(() => {
+        // محاكاة نجاح العملية بنسبة 80%
+        const isSuccess = Math.random() < 0.8;
+        resolve(isSuccess);
+      }, 2000);
+    });
+  };
+
+  const handlePayment = async () => {
     if (!selectedMethod) {
       toast.error("الرجاء اختيار طريقة دفع");
       return;
     }
     
-    console.log("تم اختيار طريقة الدفع:", selectedMethod);
+    setIsProcessing(true);
+    console.log("بدء معالجة الدفع:", selectedMethod);
+    toast.info("جاري معالجة عملية الدفع...");
 
-    switch (selectedMethod) {
-      case 'apple_pay':
-        console.log("بدء عملية الدفع عبر Apple Pay");
-        toast.success("تم بدء عملية الدفع عبر Apple Pay");
-        break;
-      case 'google_pay':
-        console.log("بدء عملية الدفع عبر Google Pay");
-        toast.success("تم بدء عملية الدفع عبر Google Pay");
-        break;
-      default:
-        toast.success("تم تأكيد عملية الدفع بنجاح!");
+    try {
+      const isSuccess = await simulatePayment();
+      
+      if (isSuccess) {
+        switch (selectedMethod) {
+          case 'apple_pay':
+            console.log("تم الدفع بنجاح عبر Apple Pay");
+            toast.success("تم الدفع بنجاح عبر Apple Pay");
+            break;
+          case 'google_pay':
+            console.log("تم الدفع بنجاح عبر Google Pay");
+            toast.success("تم الدفع بنجاح عبر Google Pay");
+            break;
+          default:
+            console.log("تم الدفع بنجاح عبر البطاقة الائتمانية");
+            toast.success("تم الدفع بنجاح عبر البطاقة الائتمانية");
+        }
+      } else {
+        throw new Error("فشلت عملية الدفع");
+      }
+    } catch (error) {
+      console.error("خطأ في عملية الدفع:", error);
+      toast.error("عذراً، فشلت عملية الدفع. الرجاء المحاولة مرة أخرى");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -63,6 +91,7 @@ export const PaymentSystem = () => {
               variant={selectedMethod === method.id ? "default" : "outline"}
               className="flex items-center justify-center gap-2 h-20"
               onClick={() => setSelectedMethod(method.id)}
+              disabled={isProcessing}
             >
               <method.icon className="w-6 h-6" />
               <span>{method.name}</span>
@@ -72,10 +101,10 @@ export const PaymentSystem = () => {
         
         {selectedMethod === "card" && (
           <div className="space-y-4">
-            <Input placeholder="رقم البطاقة" />
+            <Input placeholder="رقم البطاقة" disabled={isProcessing} />
             <div className="grid grid-cols-2 gap-4">
-              <Input placeholder="تاريخ الانتهاء" />
-              <Input placeholder="CVV" type="password" maxLength={3} />
+              <Input placeholder="تاريخ الانتهاء" disabled={isProcessing} />
+              <Input placeholder="CVV" type="password" maxLength={3} disabled={isProcessing} />
             </div>
           </div>
         )}
@@ -83,9 +112,9 @@ export const PaymentSystem = () => {
         <Button 
           className="w-full" 
           onClick={handlePayment}
-          disabled={!selectedMethod}
+          disabled={!selectedMethod || isProcessing}
         >
-          إتمام عملية الدفع
+          {isProcessing ? "جاري معالجة الدفع..." : "إتمام عملية الدفع"}
         </Button>
       </CardContent>
     </Card>
