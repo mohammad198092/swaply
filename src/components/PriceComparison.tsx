@@ -48,7 +48,7 @@ export const PriceComparison = ({ productTitle, ourPrice }: PriceComparisonProps
           <span>Facebook Marketplace:</span>
           <div className="flex items-center gap-2">
             <span>{formatPrice(fbPrice)}</span>
-            <Badge variant={getPriceComparison(fbPrice) === 'أغلى' ? 'destructive' : 'success'}>
+            <Badge variant={getPriceComparison(fbPrice) === 'أغلى' ? 'destructive' : 'secondary'}>
               {getPriceComparison(fbPrice)}
             </Badge>
           </div>
@@ -60,7 +60,7 @@ export const PriceComparison = ({ productTitle, ourPrice }: PriceComparisonProps
           <span>Trade Me:</span>
           <div className="flex items-center gap-2">
             <span>{formatPrice(tradePrice)}</span>
-            <Badge variant={getPriceComparison(tradePrice) === 'أغلى' ? 'destructive' : 'success'}>
+            <Badge variant={getPriceComparison(tradePrice) === 'أغلى' ? 'destructive' : 'secondary'}>
               {getPriceComparison(tradePrice)}
             </Badge>
           </div>
