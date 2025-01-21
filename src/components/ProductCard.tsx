@@ -3,7 +3,6 @@ import { ProductBadges } from "./ProductBadges";
 import { ProductActions } from "./ProductActions";
 import { ProductPrice } from "./ProductPrice";
 import { RatingSystem } from "./RatingSystem";
-import { PriceComparison } from "./PriceComparison";
 import { Badge } from "@/components/ui/badge";
 import { Repeat } from "lucide-react";
 import { useState } from "react";
@@ -46,15 +45,6 @@ export const ProductCard = ({
   const handleImageError = () => {
     console.log('فشل تحميل الصورة:', product.image);
     setImageError(true);
-  };
-
-  // Calculate final price for comparison
-  const getFinalPrice = () => {
-    const priceAfterDiscount = product.discount 
-      ? product.price - (product.price * product.discount / 100) 
-      : product.price;
-    const adminFee = priceAfterDiscount * 0.02;
-    return priceAfterDiscount + adminFee;
   };
 
   return (
@@ -122,10 +112,6 @@ export const ProductCard = ({
               onRatingChange={onRatingChange}
             />
           </div>
-          <PriceComparison
-            productTitle={product.title}
-            ourPrice={getFinalPrice()}
-          />
         </div>
       </CardContent>
     </Card>
