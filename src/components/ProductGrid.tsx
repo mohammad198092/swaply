@@ -28,40 +28,61 @@ export const ProductGrid = () => {
   const t = translations[language];
   const { toast } = useToast();
 
+  // فحص تحميل المكون
   useEffect(() => {
-    console.log('Loading products...');
-    console.log('Available products:', products);
+    console.log('🔍 بدء تحميل ProductGrid');
+    console.log('👀 حالة اللغة الحالية:', language);
+    console.log('📦 عدد المنتجات المتوفرة:', products.length);
+    
     const timer = setTimeout(() => {
       setIsLoading(false);
-      console.log('Products loaded!');
+      console.log('✅ اكتمل تحميل ProductGrid');
     }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    
+    return () => {
+      clearTimeout(timer);
+      console.log('🔄 تم تنظيف ProductGrid');
+    };
+  }, [language]);
 
+  // فحص تغيير التقييمات
   const handleRatingChange = (productId: number, rating: number) => {
+    console.log('⭐ تم تغيير تقييم المنتج:', { productId, rating });
     setRatings(prev => ({
       ...prev,
       [productId]: rating
     }));
-    console.log(`Rating changed for product ${productId} to:`, rating);
   };
 
+  // فحص تنسيق العملة
   const formatCurrency = (price: number, discount?: number) => {
+    console.log('💰 حساب السعر:', { price, discount });
+    
     const priceAfterDiscount = discount ? price - (price * discount / 100) : price;
     const adminFee = priceAfterDiscount * 0.02;
     const finalPrice = priceAfterDiscount + adminFee;
     
-    console.log(`Original price: ${price}, After discount: ${priceAfterDiscount}, Admin fee (2%): ${adminFee}, Final price: ${finalPrice}`);
+    console.log('📊 تفاصيل السعر:', {
+      سعر_أصلي: price,
+      خصم: discount,
+      سعر_بعد_الخصم: priceAfterDiscount,
+      رسوم_إدارية: adminFee,
+      سعر_نهائي: finalPrice
+    });
     
     return language === 'ar' 
       ? `${finalPrice.toFixed(2)} ${t.currency}`
       : `$${finalPrice.toFixed(2)}`;
   };
 
+  // فحص إضافة منتج للسلة
   const handleAddToCart = (product: any) => {
+    console.log('🛒 محاولة إضافة منتج للسلة:', product);
+    
     const existingItem = cartItems.find(item => item.id === product.id);
     
     if (existingItem) {
+      console.log('📝 تحديث كمية المنتج الموجود في السلة');
       setCartItems(prev =>
         prev.map(item =>
           item.id === product.id
@@ -70,6 +91,7 @@ export const ProductGrid = () => {
         )
       );
     } else {
+      console.log('➕ إضافة منتج جديد للسلة');
       setCartItems(prev => [
         ...prev,
         {
@@ -83,14 +105,17 @@ export const ProductGrid = () => {
       ]);
     }
     
-    console.log('Product added to cart:', product);
+    console.log('✅ تم تحديث السلة بنجاح');
     toast({
       title: "تمت الإضافة إلى السلة",
       description: `تم إضافة ${product.title} إلى سلة المشتريات`,
     });
   };
 
+  // فحص تحديث الكمية
   const handleUpdateQuantity = (id: number, quantity: number) => {
+    console.log('🔄 تحديث كمية المنتج:', { id, quantity });
+    
     if (quantity === 0) {
       handleRemoveFromCart(id);
       return;
@@ -101,28 +126,30 @@ export const ProductGrid = () => {
         item.id === id ? { ...item, quantity } : item
       )
     );
-    console.log(`Updated quantity for product ${id} to:`, quantity);
   };
 
+  // فحص حذف منتج من السلة
   const handleRemoveFromCart = (id: number) => {
+    console.log('🗑️ حذف منتج من السلة:', id);
     setCartItems(prev => prev.filter(item => item.id !== id));
-    console.log(`Removed product ${id} from cart`);
     toast({
       title: "تم الحذف من السلة",
       description: "تم حذف المنتج من سلة المشتريات",
     });
   };
 
+  // فحص مشاركة المنتج
   const handleShare = (product: any) => {
-    console.log('Product shared:', product);
+    console.log('🔗 مشاركة المنتج:', product);
     toast({
       title: "مشاركة المنتج",
       description: `تم مشاركة ${product.title}`,
     });
   };
 
+  // فحص إضافة للمفضلة
   const handleFavorite = (product: any) => {
-    console.log('Product added to favorites:', product);
+    console.log('❤️ إضافة منتج للمفضلة:', product);
     toast({
       title: "المفضلة",
       description: `تم إضافة ${product.title} إلى المفضلة`,
@@ -130,10 +157,12 @@ export const ProductGrid = () => {
   };
 
   if (isLoading) {
+    console.log('⏳ جاري تحميل المنتجات...');
     return <LoadingState />;
   }
 
   if (!products || products.length === 0) {
+    console.log('⚠️ لا توجد منتجات متاحة');
     return <EmptyState />;
   }
 
@@ -141,7 +170,10 @@ export const ProductGrid = () => {
     <div className="container mx-auto px-2 md:px-4 py-4 md:py-8">
       <div className="mb-6 flex justify-end">
         <Button
-          onClick={() => setIsCartOpen(true)}
+          onClick={() => {
+            console.log('🛒 فتح/إغلاق سلة المشتريات');
+            setIsCartOpen(true);
+          }}
           variant="outline"
           className="relative"
         >
@@ -167,7 +199,10 @@ export const ProductGrid = () => {
 
       <CartDrawer
         isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
+        onClose={() => {
+          console.log('🛒 إغلاق سلة المشتريات');
+          setIsCartOpen(false);
+        }}
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveFromCart}
