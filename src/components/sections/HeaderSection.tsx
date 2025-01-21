@@ -23,17 +23,17 @@ export const HeaderSection = () => {
       {/* Content */}
       <div className="container px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-slide-in bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200 drop-shadow-lg font-cairo tracking-wide">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-slide-in bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200 drop-shadow-lg font-poppins tracking-wide">
             SWAPLY
           </h1>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-6 md:mb-8 animate-slide-in px-4 text-blue-100">
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-6 md:mb-8 animate-slide-in px-4 text-blue-100 font-poppins">
             {t.subtitle}
           </p>
           <Button 
             asChild 
             size="lg" 
             variant="secondary" 
-            className="animate-scale-in bg-white text-blue-900 hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="animate-scale-in bg-white text-blue-900 hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl font-poppins"
           >
             <Link to="/terms" className="inline-flex items-center">
               {t.terms}
