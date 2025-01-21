@@ -22,8 +22,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage }}>
       {children}
-      {/* @ts-ignore */}
-      {window.__LOVABLE_LANGUAGE_CONTEXT__ = { language, toggleLanguage }}
     </LanguageContext.Provider>
   );
 };
