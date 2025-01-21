@@ -8,8 +8,9 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface CartItem {
   id: number;
@@ -38,6 +39,7 @@ export const CartDrawer = ({
   formatCurrency,
 }: CartDrawerProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const calculateTotal = () => {
     return items.reduce((total, item) => {
@@ -49,11 +51,13 @@ export const CartDrawer = ({
   };
 
   const handleCheckout = () => {
+    console.log("التحويل إلى صفحة الدفع");
     toast({
       title: "تم تأكيد الطلب",
-      description: "سيتم تحويلك إلى صفحة الدفع",
+      description: "جاري تحويلك إلى صفحة الدفع",
     });
     onClose();
+    navigate('/payment');
   };
 
   return (
