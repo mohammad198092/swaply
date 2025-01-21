@@ -4,6 +4,11 @@ export const products = [
     title: "آيفون 14 برو ماكس",
     price: 4999,
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+    images: [
+      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+      "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+      "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"
+    ],
     description: "هاتف ذكي متطور مع كاميرا احترافية وشاشة عالية الدقة",
     discount: 10,
     isNew: true,
