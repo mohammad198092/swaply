@@ -25,16 +25,16 @@ export const CurrencyConverter = () => {
     }
 
     // سعر التحويل الثابت (يمكن تغييره لاحقاً ليكون ديناميكياً)
-    const rate = language === 'ar' ? 0.27 : 3.75;
+    const rate = language === 'ar' ? 3.75 : 0.27;
     const result = (numAmount * rate).toFixed(2);
     setConvertedAmount(result);
 
     toast({
       title: t.currency.conversionSuccess,
-      description: `${numAmount} ${language === 'ar' ? t.currency.sar : t.currency.usd} = ${result} ${language === 'ar' ? t.currency.usd : t.currency.sar}`,
+      description: `${numAmount} ${language === 'ar' ? t.currency.usd : t.currency.sar} = ${result} ${language === 'ar' ? t.currency.sar : t.currency.usd}`,
     });
 
-    console.log('Currency conversion:', { amount: numAmount, result, fromCurrency: language === 'ar' ? 'SAR' : 'USD' });
+    console.log('Currency conversion:', { amount: numAmount, result, fromCurrency: language === 'ar' ? 'USD' : 'SAR' });
   };
 
   return (
@@ -61,7 +61,7 @@ export const CurrencyConverter = () => {
         {convertedAmount && (
           <div className="text-center p-2 bg-secondary rounded-md">
             <span className="font-semibold">
-              {convertedAmount} {language === 'ar' ? t.currency.usd : t.currency.sar}
+              {convertedAmount} {language === 'ar' ? t.currency.sar : t.currency.usd}
             </span>
           </div>
         )}
