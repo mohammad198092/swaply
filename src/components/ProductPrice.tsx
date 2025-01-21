@@ -7,13 +7,20 @@ interface ProductPriceProps {
 
 export const ProductPrice = ({ price, discount, language, formatCurrency }: ProductPriceProps) => {
   const originalPrice = discount ? price - (price * discount / 100) : price;
-  const adminFee = originalPrice * 0.02;
-  const finalPrice = originalPrice + adminFee;
+  const adminFee = originalPrice * 0.02; // 2% admin fee
+  const sellerAmount = originalPrice - adminFee;
+
+  console.log('Price breakdown:', {
+    originalPrice,
+    adminFee,
+    sellerAmount,
+    discount
+  });
 
   return (
     <div className="space-y-1">
       <p className="text-lg font-bold text-primary">
-        {language === 'ar' ? 'السعر النهائي:' : 'Final Price:'} {formatCurrency(price, discount)}
+        {language === 'ar' ? 'السعر النهائي:' : 'Final Price:'} {formatCurrency(originalPrice)}
       </p>
       <div className="text-sm text-gray-500 space-y-0.5">
         {discount && (
@@ -22,10 +29,10 @@ export const ProductPrice = ({ price, discount, language, formatCurrency }: Prod
           </p>
         )}
         <p className="text-xs">
-          {language === 'ar' ? 'السعر بعد الخصم:' : 'Price after discount:'} {originalPrice.toFixed(2)}
+          {language === 'ar' ? 'مبلغ البائع:' : "Seller's Amount:"} {formatCurrency(sellerAmount)}
         </p>
         <p className="text-xs text-primary-600">
-          {language === 'ar' ? 'رسوم إدارية (2%):' : 'Admin fee (2%):'} {adminFee.toFixed(2)}
+          {language === 'ar' ? 'رسوم إدارية (2%):' : 'Admin fee (2%):'} {formatCurrency(adminFee)}
         </p>
       </div>
     </div>
