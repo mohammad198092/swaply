@@ -68,6 +68,7 @@ export const ProductGrid = () => {
   };
 
   const handleAddToCart = (product: Product) => {
+    console.log('Adding to cart:', product);
     toast({
       title: language === 'ar' ? "تمت الإضافة للسلة" : "Added to Cart",
       description: language === 'ar' 
@@ -77,12 +78,22 @@ export const ProductGrid = () => {
   };
 
   const handleShare = (product: Product) => {
-    // Share functionality would go here
+    console.log('Sharing product:', product);
     toast({
       title: language === 'ar' ? "مشاركة المنتج" : "Share Product",
       description: language === 'ar' 
         ? `تمت مشاركة ${product.title}`
         : `${product.title} has been shared`,
+    });
+  };
+
+  const handleFavorite = (product: Product) => {
+    console.log('Adding to favorites:', product);
+    toast({
+      title: language === 'ar' ? "المفضلة" : "Favorites",
+      description: language === 'ar' 
+        ? `تمت إضافة ${product.title} إلى المفضلة`
+        : `${product.title} has been added to favorites`,
     });
   };
 
@@ -92,7 +103,7 @@ export const ProductGrid = () => {
         {products.map((product) => (
           <Card 
             key={product.id} 
-            className="flex flex-col h-full hover:shadow-lg transition-all duration-300 dark:bg-gray-800 group"
+            className="flex flex-col h-full hover:shadow-lg transition-all duration-300 dark:bg-gray-800 group animate-fade-in"
           >
             <CardHeader className="flex-none relative">
               <CardTitle className="text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2">
@@ -100,12 +111,12 @@ export const ProductGrid = () => {
               </CardTitle>
               <div className="absolute top-2 right-2 space-x-2 rtl:space-x-reverse">
                 {product.isNew && (
-                  <Badge className="bg-green-500">
+                  <Badge className="bg-green-500 animate-scale-in">
                     {language === 'ar' ? 'جديد' : 'New'}
                   </Badge>
                 )}
                 {product.discount && (
-                  <Badge className="bg-red-500">
+                  <Badge className="bg-red-500 animate-scale-in">
                     {`${product.discount}% ${language === 'ar' ? 'خصم' : 'OFF'}`}
                   </Badge>
                 )}
@@ -122,7 +133,7 @@ export const ProductGrid = () => {
                   <Button
                     size="icon"
                     variant="secondary"
-                    className="rounded-full"
+                    className="rounded-full hover:scale-110 transition-transform"
                     onClick={() => handleAddToCart(product)}
                   >
                     <ShoppingCart className="h-5 w-5" />
@@ -130,7 +141,7 @@ export const ProductGrid = () => {
                   <Button
                     size="icon"
                     variant="secondary"
-                    className="rounded-full"
+                    className="rounded-full hover:scale-110 transition-transform"
                     onClick={() => handleShare(product)}
                   >
                     <Share2 className="h-5 w-5" />
@@ -138,7 +149,8 @@ export const ProductGrid = () => {
                   <Button
                     size="icon"
                     variant="secondary"
-                    className="rounded-full"
+                    className="rounded-full hover:scale-110 transition-transform"
+                    onClick={() => handleFavorite(product)}
                   >
                     <Heart className="h-5 w-5" />
                   </Button>
