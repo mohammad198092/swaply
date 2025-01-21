@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { ProductCard } from "./ProductCard";
 import { useLanguage } from '@/lib/language-context';
 import { LoadingState } from './LoadingState';
+import { Language } from '@/lib/language-context';
 
 interface Product {
   id: number;
@@ -30,6 +31,7 @@ interface ProductListProps {
   onShare: (product: Product) => void;
   onFavorite: (product: Product) => void;
   formatCurrency: (price: number, discount?: number) => string;
+  language: Language;
 }
 
 export const ProductList = ({
@@ -39,9 +41,9 @@ export const ProductList = ({
   onAddToCart,
   onShare,
   onFavorite,
-  formatCurrency
+  formatCurrency,
+  language
 }: ProductListProps) => {
-  const { language } = useLanguage();
   const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
