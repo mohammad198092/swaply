@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, ShoppingBag, CreditCard, MessageCircle } from "lucide-react";
+import { Bell, ShoppingBag, CreditCard, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,16 +23,16 @@ export const NotificationSystem = () => {
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: "1",
-      title: "طلب جديد",
-      message: "تم استلام طلبك بنجاح",
+      title: "New Order",
+      message: "Your order has been received successfully",
       type: "order",
       read: false,
       timestamp: new Date()
     },
     {
       id: "2",
-      title: "تأكيد الدفع",
-      message: "تم تأكيد عملية الدفع",
+      title: "Payment Confirmation",
+      message: "Payment has been confirmed",
       type: "payment",
       read: false,
       timestamp: new Date(Date.now() - 3600000)
@@ -56,12 +56,16 @@ export const NotificationSystem = () => {
     ));
   };
 
+  const dismissNotification = (id: string) => {
+    setNotifications(notifications.filter(notif => notif.id !== id));
+  };
+
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-semibold">الإشعارات</CardTitle>
+        <CardTitle className="text-lg font-semibold">Notifications</CardTitle>
         <Bell className="w-4 h-4 text-gray-500" />
         {unreadCount > 0 && (
           <Badge variant="destructive" className="absolute -top-2 -right-2">
@@ -73,7 +77,7 @@ export const NotificationSystem = () => {
         {notifications.map((notification) => (
           <div
             key={notification.id}
-            className={`flex items-start space-x-4 p-3 rounded-lg transition-colors ${
+            className={`flex items-start space-x-4 p-3 rounded-lg transition-colors relative ${
               notification.read ? 'bg-gray-50' : 'bg-blue-50'
             }`}
             onClick={() => markAsRead(notification.id)}
@@ -85,9 +89,19 @@ export const NotificationSystem = () => {
               <h4 className="text-sm font-medium">{notification.title}</h4>
               <p className="text-sm text-gray-500">{notification.message}</p>
               <span className="text-xs text-gray-400">
-                {new Date(notification.timestamp).toLocaleTimeString('ar-SA')}
+                {new Date(notification.timestamp).toLocaleTimeString()}
               </span>
             </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                dismissNotification(notification.id);
+              }}
+              className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Dismiss notification"
+            >
+              <X className="w-4 h-4 text-gray-500" />
+            </button>
           </div>
         ))}
       </CardContent>
