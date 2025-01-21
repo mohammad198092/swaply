@@ -17,6 +17,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { AuctionSystem } from "@/components/AuctionSystem";
+import { SellerRating } from "@/components/SellerRating";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -93,8 +95,17 @@ const Index = () => {
           <div>
             <UserVerification />
           </div>
-          <div>
-            <CurrencyConverter />
+          <div className="space-y-4">
+            <AuctionSystem
+              productId="123"
+              currentPrice={1500}
+              endTime={new Date(Date.now() + 24 * 60 * 60 * 1000)}
+            />
+            <SellerRating
+              sellerId="456"
+              currentRating={4.5}
+              totalRatings={128}
+            />
           </div>
         </div>
 
