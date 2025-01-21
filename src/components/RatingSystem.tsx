@@ -17,10 +17,8 @@ export const RatingSystem = ({ rating, onRatingChange }: RatingSystemProps) => {
     onRatingChange(value);
     console.log('Rating changed to:', value);
     toast({
-      title: language === 'ar' ? "تم التقييم بنجاح" : t.ratingSuccess,
-      description: language === 'ar' 
-        ? `لقد قمت بتقييم المنتج ${value} نجوم`
-        : `${t.ratingDescription} ${value} stars`,
+      title: t.ratingSuccess,
+      description: `${t.ratingDescription} ${value} ${language === 'ar' ? 'نجوم' : 'stars'}`,
       duration: 2000
     });
   };
@@ -28,7 +26,7 @@ export const RatingSystem = ({ rating, onRatingChange }: RatingSystemProps) => {
   return (
     <div className="flex items-center gap-2 animate-fade-in" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
-        {language === 'ar' ? 'التقييم:' : t.rating}
+        {t.rating}:
       </span>
       {[1, 2, 3, 4, 5].map((star) => (
         <button

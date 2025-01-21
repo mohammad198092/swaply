@@ -15,7 +15,25 @@ export const translations = {
       searching: "جاري البحث...",
       categoryChanged: "تم تغيير الفئة",
       searchingIn: "البحث في"
-    }
+    },
+    products: {
+      smartphone: {
+        title: "هاتف ذكي",
+        description: "هاتف ذكي بمواصفات عالية"
+      },
+      laptop: {
+        title: "حاسوب محمول",
+        description: "حاسوب محمول للاستخدام المهني"
+      },
+      headphones: {
+        title: "سماعات لاسلكية",
+        description: "سماعات لاسلكية بجودة صوت عالية"
+      }
+    },
+    rating: "التقييم",
+    ratingSuccess: "تم التقييم بنجاح",
+    ratingDescription: "لقد قمت بتقييم المنتج",
+    currency: "ريال"
   },
   en: {
     title: "Swaply",
@@ -48,9 +66,9 @@ export const translations = {
         description: "Premium wireless headphones with superior sound quality"
       }
     },
-    currency: "USD",
     rating: "Rating",
     ratingSuccess: "Thank you for rating!",
-    ratingDescription: "You rated this product"
+    ratingDescription: "You rated this product",
+    currency: "USD"
   }
 };

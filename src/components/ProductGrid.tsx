@@ -20,24 +20,24 @@ export const ProductGrid = () => {
   const products: Product[] = [
     {
       id: 1,
-      title: language === 'ar' ? "هاتف ذكي" : t.products.smartphone.title,
+      title: t.products.smartphone.title,
       price: 999,
       image: "/placeholder.svg",
-      description: language === 'ar' ? "هاتف ذكي بمواصفات عالية" : t.products.smartphone.description
+      description: t.products.smartphone.description
     },
     {
       id: 2,
-      title: language === 'ar' ? "حاسوب محمول" : t.products.laptop.title,
+      title: t.products.laptop.title,
       price: 1499,
       image: "/placeholder.svg",
-      description: language === 'ar' ? "حاسوب محمول للاستخدام المهني" : t.products.laptop.description
+      description: t.products.laptop.description
     },
     {
       id: 3,
-      title: language === 'ar' ? "سماعات لاسلكية" : t.products.headphones.title,
+      title: t.products.headphones.title,
       price: 199,
       image: "/placeholder.svg",
-      description: language === 'ar' ? "سماعات لاسلكية بجودة صوت عالية" : t.products.headphones.description
+      description: t.products.headphones.description
     }
   ];
 
@@ -51,7 +51,7 @@ export const ProductGrid = () => {
 
   const formatCurrency = (price: number) => {
     return language === 'ar' 
-      ? `${price} ريال`
+      ? `${price} ${t.currency}`
       : `$${price}`;
   };
 
