@@ -3,7 +3,12 @@ export const products = [
     id: 1,
     title: "آيفون 14 برو ماكس",
     price: 4999,
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+    image: "https://images.unsplash.com/photo-1632661674596-618d8b34be07",
+    images: [
+      "https://images.unsplash.com/photo-1632661674596-618d8b34be07",
+      "https://images.unsplash.com/photo-1591337676887-a217a6970a8a",
+      "https://images.unsplash.com/photo-1592286927505-1def25115558"
+    ],
     description: "هاتف ذكي متطور مع كاميرا احترافية وشاشة عالية الدقة",
     discount: 10,
     isNew: true,
@@ -21,7 +26,12 @@ export const products = [
     id: 2,
     title: "قطة شيرازي صغيرة",
     price: 1500,
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
+    images: [
+      "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
+      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131",
+      "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8"
+    ],
     description: "قطة شيرازي جميلة، عمرها 3 أشهر، تم تطعيمها بالكامل",
     isNew: true,
     isExchangeable: false,
@@ -37,7 +47,12 @@ export const products = [
     id: 3,
     title: "دراجة هوائية جبلية",
     price: 2999,
-    image: "https://images.unsplash.com/photo-1485833077593-4278bba3f11f",
+    image: "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91",
+    images: [
+      "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91",
+      "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7",
+      "https://images.unsplash.com/photo-1485965120184-e220f721d03e"
+    ],
     description: "دراجة هوائية للمغامرات الجبلية، حالة ممتازة",
     discount: 15,
     isExchangeable: true,
@@ -54,7 +69,12 @@ export const products = [
     id: 4,
     title: "كاميرا كانون احترافية",
     price: 3500,
-    image: "https://images.unsplash.com/photo-1438565434616-3ef039228b15",
+    image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+    images: [
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
+      "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39"
+    ],
     description: "كاميرا احترافية مع عدسات متعددة وحقيبة حمل",
     isNew: true,
     status: 'available' as const,
