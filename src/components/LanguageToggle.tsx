@@ -4,6 +4,9 @@ import { Languages } from 'lucide-react';
 import { LanguageContext } from '@/lib/language-context';
 import { useToast } from "@/hooks/use-toast";
 
+// Create a custom event for dismissing notifications
+const dismissNotificationsEvent = new CustomEvent('dismissAllNotifications');
+
 export const LanguageToggle = () => {
   const { language, toggleLanguage } = useContext(LanguageContext);
   const { toast } = useToast();
@@ -16,6 +19,9 @@ export const LanguageToggle = () => {
     const newLang = language === 'ar' ? 'en' : 'ar';
     toggleLanguage();
     console.log('Language changed to:', newLang);
+    
+    // Dispatch event to dismiss all notifications
+    window.dispatchEvent(dismissNotificationsEvent);
     
     toast({
       title: language === 'ar' ? "Language Changed" : "تم تغيير اللغة",

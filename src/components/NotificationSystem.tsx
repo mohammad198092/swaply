@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bell, ShoppingBag, CreditCard, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,6 +38,19 @@ export const NotificationSystem = () => {
       timestamp: new Date(Date.now() - 3600000)
     }
   ]);
+
+  useEffect(() => {
+    const handleDismissAll = () => {
+      console.log('Dismissing all notifications due to language change');
+      setNotifications([]);
+    };
+
+    window.addEventListener('dismissAllNotifications', handleDismissAll);
+    
+    return () => {
+      window.removeEventListener('dismissAllNotifications', handleDismissAll);
+    };
+  }, []);
 
   const getIcon = (type: Notification['type']) => {
     switch (type) {
