@@ -6,6 +6,7 @@ import { ImageUpload } from './ImageUpload';
 import { ExchangeSection } from './ExchangeSection';
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 interface NewProduct {
   title: string;
@@ -91,6 +92,7 @@ export const AddProduct = () => {
           />
 
           <Button type="submit" className="w-full">
+            <Plus className="ml-2" />
             إضافة المنتج
           </Button>
         </form>
