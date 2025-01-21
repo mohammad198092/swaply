@@ -9,32 +9,32 @@ const Terms = () => {
         <Button asChild className="mb-8">
           <Link to="/">
             <ArrowRight className="ml-2" />
-            العودة للرئيسية
+            Back to Home
           </Link>
         </Button>
 
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold mb-6">شروط الاستخدام وإخلاء المسؤولية</h1>
+          <h1 className="text-3xl font-bold mb-6">Terms of Use and Disclaimer</h1>
           
           <div className="space-y-4">
             <section>
-              <h2 className="text-xl font-semibold mb-2">شروط الاستخدام</h2>
-              <p>باستخدام هذا التطبيق، أنت توافق على الشروط التالية:</p>
+              <h2 className="text-xl font-semibold mb-2">Terms of Use</h2>
+              <p>By using this application, you agree to the following terms:</p>
               <ul className="list-disc list-inside space-y-2 mt-2">
-                <li>يجب أن تكون جميع المعلومات المقدمة صحيحة ودقيقة</li>
-                <li>يمنع نشر أي محتوى مخالف للقانون أو الآداب العامة</li>
-                <li>يجب احترام حقوق الملكية الفكرية للآخرين</li>
-                <li>نحتفظ بالحق في إزالة أي محتوى مخالف للشروط</li>
+                <li>All provided information must be accurate and truthful</li>
+                <li>Posting any content that violates laws or public morals is prohibited</li>
+                <li>You must respect others' intellectual property rights</li>
+                <li>We reserve the right to remove any content that violates the terms</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-2">إخلاء المسؤولية</h2>
-              <p>نحن لا نتحمل المسؤولية عن:</p>
+              <h2 className="text-xl font-semibold mb-2">Disclaimer</h2>
+              <p>We are not responsible for:</p>
               <ul className="list-disc list-inside space-y-2 mt-2">
-                <li>أي معاملات تتم بين المستخدمين</li>
-                <li>دقة أو صحة المعلومات المقدمة من المستخدمين</li>
-                <li>أي خسائر أو أضرار ناتجة عن استخدام التطبيق</li>
+                <li>Any transactions between users</li>
+                <li>The accuracy or truthfulness of information provided by users</li>
+                <li>Any losses or damages resulting from using the application</li>
               </ul>
             </section>
           </div>

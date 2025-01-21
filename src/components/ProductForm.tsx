@@ -25,7 +25,7 @@ export const ProductForm = () => {
   return (
     <form className="space-y-6 max-w-2xl mx-auto p-6">
       <div>
-        <label className="block text-lg mb-2">صور المنتج</label>
+        <label className="block text-lg mb-2">Product Images</label>
         <div className="border-2 border-dashed rounded-lg p-8 text-center">
           <Input
             type="file"
@@ -37,7 +37,7 @@ export const ProductForm = () => {
           />
           <label htmlFor="images" className="cursor-pointer">
             <Upload className="mx-auto h-12 w-12 text-gray-400" />
-            <p className="mt-2">اضغط لتحميل الصور أو اسحب وأفلت هنا</p>
+            <p className="mt-2">Click to upload images or drag and drop here</p>
           </label>
           {images.length > 0 && (
             <div className="mt-4 grid grid-cols-3 gap-4">
@@ -55,27 +55,27 @@ export const ProductForm = () => {
       </div>
 
       <div>
-        <label className="block text-lg mb-2">عنوان المنتج</label>
-        <Input placeholder="أدخل عنوان المنتج" />
+        <label className="block text-lg mb-2">Product Title</label>
+        <Input placeholder="Enter product title" />
       </div>
 
       <div>
-        <label className="block text-lg mb-2">الوصف</label>
-        <Textarea placeholder="اكتب وصفاً تفصيلياً للمنتج" rows={5} />
+        <label className="block text-lg mb-2">Description</label>
+        <Textarea placeholder="Write a detailed description of the product" rows={5} />
       </div>
 
       <div>
-        <label className="block text-lg mb-2">الموقع</label>
+        <label className="block text-lg mb-2">Location</label>
         <div className="flex gap-2">
-          <Input value={location} placeholder="حدد موقعك" readOnly />
+          <Input value={location} placeholder="Set your location" readOnly />
           <Button type="button" onClick={handleLocationClick}>
-            <MapPin className="h-4 w-4 ml-2" />
-            تحديد الموقع
+            <MapPin className="h-4 w-4 mr-2" />
+            Set Location
           </Button>
         </div>
       </div>
 
-      <Button type="submit" className="w-full">نشر المنتج</Button>
+      <Button type="submit" className="w-full">Post Product</Button>
     </form>
   );
 };
