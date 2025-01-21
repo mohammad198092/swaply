@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/carousel";
 import { AuctionSystem } from "@/components/AuctionSystem";
 import { SellerRating } from "@/components/SellerRating";
+import { NotificationSystem } from "@/components/NotificationSystem";
+import { PaymentSystem } from "@/components/PaymentSystem";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -92,8 +94,9 @@ const Index = () => {
 
       <div className="container px-4 my-8 md:my-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div>
+          <div className="space-y-4">
             <UserVerification />
+            <NotificationSystem />
           </div>
           <div className="space-y-4">
             <AuctionSystem
@@ -106,6 +109,7 @@ const Index = () => {
               currentRating={4.5}
               totalRatings={128}
             />
+            <PaymentSystem />
           </div>
         </div>
 
@@ -153,15 +157,14 @@ const Index = () => {
             </div>
           </Carousel>
         </div>
-      </div>
 
-      <main className="container px-4 py-8 md:py-12">
-        <Card className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg animate-scale-in">
-          <CardContent className="p-4 md:p-6">
-            <ProductGrid />
-          </CardContent>
-        </Card>
-      </main>
+        <main className="container px-4 py-8 md:py-12">
+          <Card className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg animate-scale-in">
+            <CardContent className="p-4 md:p-6">
+              <ProductGrid />
+            </CardContent>
+          </Card>
+        </main>
 
       <footer className="bg-gray-100 dark:bg-gray-800 py-8 mt-auto">
         <div className="container px-4">
@@ -189,6 +192,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
