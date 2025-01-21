@@ -11,6 +11,13 @@ interface Product {
   isNew?: boolean;
   isExchangeable?: boolean;
   exchangeDescription?: string;
+  status?: 'swapped' | 'sold' | 'available';
+  seller: {
+    id: number;
+    name: string;
+    avatar: string;
+    rating: number;
+  };
 }
 
 interface ProductListProps {

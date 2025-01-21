@@ -11,10 +11,14 @@ const mockProduct = {
   image: "/placeholder.svg",
   description: "هاتف ذكي بمواصفات عالية",
   discount: 10,
-  isNew: true
+  isNew: true,
+  seller: {
+    id: 1,
+    name: "أحمد محمد",
+    avatar: "/avatar-placeholder.png",
+    rating: 4.5
+  }
 };
-
-const mockFormatCurrency = (price: number) => `${price} ريال`;
 
 describe('ProductCard Component', () => {
   const setup = () => {
@@ -38,7 +42,7 @@ describe('ProductCard Component', () => {
             onAddToCart={onAddToCart}
             onShare={onShare}
             onFavorite={onFavorite}
-            formatCurrency={mockFormatCurrency}
+            formatCurrency={(price: number) => `${price} ريال`}
           />
         </LanguageProvider>
       )
