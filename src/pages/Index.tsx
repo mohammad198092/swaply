@@ -2,6 +2,7 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { SearchProducts } from "@/components/SearchProducts";
 import { ProductGrid } from "@/components/ProductGrid";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
+import { UserVerification } from "@/components/UserVerification";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { translations } from "@/lib/translations";
@@ -88,6 +89,15 @@ const Index = () => {
       </header>
 
       <div className="container px-4 my-8 md:my-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div>
+            <UserVerification />
+          </div>
+          <div>
+            <CurrencyConverter />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
           {features.map((feature, index) => (
             <Card key={index} className="p-4 md:p-6 hover:shadow-lg transition-shadow duration-300">
@@ -98,15 +108,6 @@ const Index = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-          <div className="lg:col-span-2">
-            <SearchProducts />
-          </div>
-          <div className="w-full">
-            <CurrencyConverter />
-          </div>
-        </div>
-        
         <div className="mt-8 md:mt-12">
           <Carousel
             opts={{
