@@ -65,15 +65,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <LanguageToggle />
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageToggle />
+      </div>
       
-      <header className="bg-primary dark:bg-primary-dark text-white py-16 text-center relative overflow-hidden animate-fade-in">
+      <header className="bg-primary dark:bg-primary-dark text-white py-8 md:py-16 text-center relative overflow-hidden animate-fade-in">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-90"></div>
-        <div className="container relative z-10">
-          <h1 className="text-5xl font-bold mb-6 animate-slide-in">
+        <div className="container px-4 relative z-10">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-slide-in">
             {t.title}
           </h1>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8 animate-slide-in">
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-6 md:mb-8 animate-slide-in px-4">
             {t.subtitle}
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-scale-in">
@@ -85,86 +87,90 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="container my-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div className="container px-4 my-8 md:my-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
           {features.map((feature, index) => (
-            <Card key={index} className="p-6 hover:shadow-lg transition-shadow duration-300">
-              <feature.icon className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
+            <Card key={index} className="p-4 md:p-6 hover:shadow-lg transition-shadow duration-300">
+              <feature.icon className="h-8 w-8 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">{feature.description}</p>
             </Card>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="lg:col-span-2">
             <SearchProducts />
           </div>
-          <div className="md:col-span-1">
+          <div className="w-full">
             <CurrencyConverter />
           </div>
         </div>
         
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full mt-12"
-        >
-          <CarouselContent>
-            {ads.map((ad) => (
-              <CarouselItem key={ad.id} className="md:basis-1/2 lg:basis-1/3">
-                <div className={`${ad.color} rounded-lg p-6 h-40 text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg relative overflow-hidden`}>
-                  {ad.badge && (
-                    <Badge className="absolute top-2 right-2 bg-white/20 text-white">
-                      {ad.badge}
-                    </Badge>
-                  )}
-                  <div className="relative z-10">
-                    <h3 className="text-xl font-bold mb-2">{ad.title}</h3>
-                    <p className="text-sm opacity-90">{ad.description}</p>
+        <div className="mt-8 md:mt-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {ads.map((ad) => (
+                <CarouselItem key={ad.id} className="basis-full sm:basis-1/2 lg:basis-1/3 p-2">
+                  <div className={`${ad.color} rounded-lg p-4 md:p-6 h-32 md:h-40 text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg relative overflow-hidden`}>
+                    {ad.badge && (
+                      <Badge className="absolute top-2 right-2 bg-white/20 text-white text-xs">
+                        {ad.badge}
+                      </Badge>
+                    )}
+                    <div className="relative z-10">
+                      <h3 className="text-lg md:text-xl font-bold mb-2">{ad.title}</h3>
+                      <p className="text-xs md:text-sm opacity-90">{ad.description}</p>
+                    </div>
+                    <div className="absolute bottom-0 right-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                      <Star className="h-24 w-24 md:h-32 md:w-32" />
+                    </div>
                   </div>
-                  <div className="absolute bottom-0 right-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
-                    <Star className="h-32 w-32" />
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="hidden md:block">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel>
+        </div>
       </div>
 
-      <main className="container py-12">
+      <main className="container px-4 py-8 md:py-12">
         <Card className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg animate-scale-in">
-          <CardContent>
+          <CardContent className="p-4 md:p-6">
             <ProductGrid />
           </CardContent>
         </Card>
       </main>
 
       <footer className="bg-gray-100 dark:bg-gray-800 py-8 mt-auto">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
+        <div className="container px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center md:text-right">
             <div>
-              <h4 className="text-lg font-semibold mb-4">{t.title}</h4>
-              <p className="text-gray-600 dark:text-gray-400">{t.rights}</p>
+              <h4 className="text-lg font-semibold mb-3 md:mb-4">{t.title}</h4>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">{t.rights}</p>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4">روابط سريعة</h4>
+              <h4 className="text-lg font-semibold mb-3 md:mb-4">روابط سريعة</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/terms" className="text-gray-600 dark:text-gray-400 hover:text-primary">
+                  <Link to="/terms" className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-primary">
                     {t.terms}
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4">تواصل معنا</h4>
-              <p className="text-gray-600 dark:text-gray-400">
+              <h4 className="text-lg font-semibold mb-3 md:mb-4">تواصل معنا</h4>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
                 support@swaply.com
               </p>
             </div>
