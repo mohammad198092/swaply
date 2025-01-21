@@ -1,6 +1,6 @@
 import { LanguageToggle } from "@/components/LanguageToggle";
-import { ProductForm } from "@/components/ProductForm";
 import { SearchProducts } from "@/components/SearchProducts";
+import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { translations } from "@/lib/translations";
@@ -13,7 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useEffect } from "react";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -39,10 +38,6 @@ const Index = () => {
       color: "bg-purple-500 dark:bg-purple-600",
     },
   ];
-
-  useEffect(() => {
-    console.log("Page loaded with language:", language);
-  }, [language]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -88,8 +83,8 @@ const Index = () => {
         </div>
 
         <Card className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg animate-scale-in">
-          <CardContent className="p-0">
-            <ProductForm />
+          <CardContent>
+            <ProductGrid />
           </CardContent>
         </Card>
       </main>
