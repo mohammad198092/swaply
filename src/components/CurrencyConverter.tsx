@@ -27,7 +27,10 @@ const CURRENCY_RATES: CurrencyRate = {
     KWD: 0.31,
     BHD: 0.38,
     QAR: 3.64,
-    OMR: 0.38
+    OMR: 0.38,
+    NZD: 1.64,
+    AUD: 1.52,
+    CAD: 1.35
   },
   SAR: {
     USD: 0.27,
@@ -38,7 +41,10 @@ const CURRENCY_RATES: CurrencyRate = {
     KWD: 0.082,
     BHD: 0.10,
     QAR: 0.97,
-    OMR: 0.10
+    OMR: 0.10,
+    NZD: 0.44,
+    AUD: 0.41,
+    CAD: 0.36
   }
 };
 
@@ -61,7 +67,10 @@ export const CurrencyConverter = () => {
     { value: 'KWD', label: t.currency.kwd },
     { value: 'BHD', label: t.currency.bhd },
     { value: 'QAR', label: t.currency.qar },
-    { value: 'OMR', label: t.currency.omr }
+    { value: 'OMR', label: t.currency.omr },
+    { value: 'NZD', label: t.currency.nzd },
+    { value: 'AUD', label: t.currency.aud },
+    { value: 'CAD', label: t.currency.cad }
   ];
 
   const handleConvert = () => {

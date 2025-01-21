@@ -49,7 +49,10 @@ export const translations = {
       kwd: "دينار كويتي",
       bhd: "دينار بحريني",
       qar: "ريال قطري",
-      omr: "ريال عماني"
+      omr: "ريال عماني",
+      nzd: "دولار نيوزلندي",
+      aud: "دولار أسترالي",
+      cad: "دولار كندي"
     },
     rating: "التقييم",
     ratingSuccess: "تم التقييم بنجاح",
@@ -105,7 +108,10 @@ export const translations = {
       kwd: "Kuwaiti Dinar (KWD)",
       bhd: "Bahraini Dinar (BHD)",
       qar: "Qatari Riyal (QAR)",
-      omr: "Omani Rial (OMR)"
+      omr: "Omani Rial (OMR)",
+      nzd: "New Zealand Dollar (NZD)",
+      aud: "Australian Dollar (AUD)",
+      cad: "Canadian Dollar (CAD)"
     },
     rating: "Rating",
     ratingSuccess: "Thank you for rating!",
