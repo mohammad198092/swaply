@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
 import { translations } from "@/lib/translations";
+import { CustomerSupport } from "@/components/CustomerSupport";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 export const FooterSection = () => {
   const { language } = useLanguage();
   const t = translations[language];
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <footer className="bg-gray-100 dark:bg-gray-800 py-8 mt-auto">
@@ -21,6 +25,18 @@ export const FooterSection = () => {
                 <Link to="/terms" className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-primary">
                   {t.terms}
                 </Link>
+              </li>
+              <li>
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                  <DialogTrigger asChild>
+                    <button className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-primary">
+                      تواصل معنا
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-xl">
+                    <CustomerSupport />
+                  </DialogContent>
+                </Dialog>
               </li>
             </ul>
           </div>

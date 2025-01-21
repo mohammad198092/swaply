@@ -5,7 +5,6 @@ import { CarouselSection } from "@/components/sections/CarouselSection";
 import { MainContent } from "@/components/sections/MainContent";
 import { FooterSection } from "@/components/sections/FooterSection";
 import { AddProduct } from "@/components/AddProduct";
-import { CustomerSupport } from "@/components/CustomerSupport";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -38,14 +37,6 @@ const Index = () => {
         <FeaturesSection />
         <CarouselSection />
         <MainContent />
-        
-        {/* قسم تواصل معنا */}
-        <div className="mt-16 mb-8">
-          <h2 className="text-2xl font-bold text-center mb-8">تواصل معنا</h2>
-          <div className="max-w-xl mx-auto">
-            <CustomerSupport />
-          </div>
-        </div>
       </div>
 
       <FooterSection />
