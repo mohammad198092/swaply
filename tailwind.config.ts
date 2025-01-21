@@ -28,6 +28,10 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        popover: {
+          DEFAULT: "white",
+          foreground: "hsl(var(--popover-foreground))",
+        },
         primary: {
           DEFAULT: '#2563eb',
           foreground: '#ffffff',
