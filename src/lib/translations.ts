@@ -30,6 +30,16 @@ export const translations = {
         description: "سماعات لاسلكية بجودة صوت عالية"
       }
     },
+    currency: {
+      converter: "محول العملات",
+      convert: "تحويل",
+      enterAmount: "أدخل المبلغ",
+      invalidAmount: "مبلغ غير صالح",
+      enterValidAmount: "الرجاء إدخال مبلغ صحيح",
+      conversionSuccess: "تم التحويل بنجاح",
+      sar: "ريال",
+      usd: "دولار"
+    },
     rating: "التقييم",
     ratingSuccess: "تم التقييم بنجاح",
     ratingDescription: "لقد قمت بتقييم المنتج",
@@ -65,6 +75,16 @@ export const translations = {
         title: "Wireless Headphones",
         description: "Premium wireless headphones with superior sound quality"
       }
+    },
+    currency: {
+      converter: "Currency Converter",
+      convert: "Convert",
+      enterAmount: "Enter amount",
+      invalidAmount: "Invalid Amount",
+      enterValidAmount: "Please enter a valid amount",
+      conversionSuccess: "Conversion Successful",
+      sar: "SAR",
+      usd: "USD"
     },
     rating: "Rating",
     ratingSuccess: "Thank you for rating!",

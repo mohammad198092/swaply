@@ -1,6 +1,7 @@
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { SearchProducts } from "@/components/SearchProducts";
 import { ProductGrid } from "@/components/ProductGrid";
+import { CurrencyConverter } from "@/components/CurrencyConverter";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { translations } from "@/lib/translations";
@@ -51,14 +52,21 @@ const Index = () => {
       </header>
 
       <div className="container my-8 animate-scale-in">
-        <SearchProducts />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2">
+            <SearchProducts />
+          </div>
+          <div className="md:col-span-1">
+            <CurrencyConverter />
+          </div>
+        </div>
         
         <Carousel
           opts={{
             align: "start",
             loop: true,
           }}
-          className="w-full"
+          className="w-full mt-8"
         >
           <CarouselContent>
             {ads.map((ad) => (
