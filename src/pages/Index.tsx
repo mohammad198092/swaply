@@ -20,12 +20,13 @@ const Index = () => {
       
       <div className="fixed top-4 left-4 z-50">
         <Button 
-          variant="outline" 
-          size="icon"
+          variant="secondary"
+          size="default"
           onClick={() => navigate(-1)}
-          className="bg-white dark:bg-gray-800"
+          className="flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-5 w-5" />
+          <span>رجوع</span>
         </Button>
       </div>
       
