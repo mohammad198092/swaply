@@ -9,7 +9,6 @@ import { SocialShare } from "@/components/SocialShare";
 import { AuctionSystem } from "@/components/AuctionSystem";
 import { SellerRating } from "@/components/SellerRating";
 import { PaymentSystem } from "@/components/PaymentSystem";
-import { CustomerSupport } from "@/components/CustomerSupport";
 import { useLanguage } from "@/lib/language-context";
 
 export const MainContent = () => {
@@ -54,7 +53,6 @@ export const MainContent = () => {
             totalRatings={128}
           />
           <PaymentSystem />
-          <CustomerSupport />
         </div>
       </div>
 
