@@ -7,8 +7,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 
 export const CarouselSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const ads = [
     {
       id: 1,
@@ -35,6 +40,11 @@ export const CarouselSection = () => {
 
   return (
     <div className="mt-8 md:mt-12">
+      <div className="text-center mb-4">
+        <p className="text-lg font-semibold">
+          {t.advertiseHere} | {language === 'ar' ? 'Advertise Here' : 'أعلن هنا'}
+        </p>
+      </div>
       <Carousel
         opts={{
           align: "start",

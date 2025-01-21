@@ -5,6 +5,7 @@ export const translations = {
     terms: "شروط الاستخدام",
     rights: "جميع الحقوق محفوظة",
     search: "ابحث عن المنتجات...",
+    advertiseHere: "أعلن هنا",
     categories: {
       all: "كل الفئات",
       electronics: "إلكترونيات",
@@ -64,6 +65,7 @@ export const translations = {
     terms: "Terms of Use",
     rights: "All Rights Reserved",
     search: "Search products...",
+    advertiseHere: "Advertise Here",
     categories: {
       all: "All Categories",
       electronics: "Electronics",
