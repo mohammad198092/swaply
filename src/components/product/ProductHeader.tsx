@@ -62,8 +62,11 @@ export const ProductHeader = ({
           language={language}
         />
         {isExchangeable && (
-          <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm animate-scale-in">
-            <Repeat className="h-3 w-3 md:h-4 md:w-4" />
+          <Badge 
+            variant="secondary" 
+            className="flex items-center gap-1 text-xs md:text-sm bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+          >
+            <Repeat className="h-3 w-3 md:h-4 md:w-4 animate-pulse" />
             قابل للتبادل
           </Badge>
         )}
