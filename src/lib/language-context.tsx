@@ -10,15 +10,14 @@ interface LanguageContextType {
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('ar');
+  const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
-    // Set initial direction based on language
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
     document.documentElement.className = language === 'ar' ? 'rtl' : 'ltr';
-    console.log('Initial language set to:', language);
-  }, []);
+    console.log('Language set to:', language);
+  }, [language]);
 
   const toggleLanguage = () => {
     setLanguage((prevLang) => {
