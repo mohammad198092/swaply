@@ -4,7 +4,7 @@ import { ProductActions } from "./ProductActions";
 import { ProductPrice } from "./ProductPrice";
 import { RatingSystem } from "./RatingSystem";
 import { Badge } from "@/components/ui/badge";
-import { Repeat, SwapHorizontal, ShoppingBag } from "lucide-react";
+import { Repeat, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 
 interface Product {
@@ -53,7 +53,7 @@ export const ProductCard = ({
 
     const statusConfig = {
       swapped: {
-        icon: <SwapHorizontal className="h-3 w-3 mr-1" />,
+        icon: <Repeat className="h-3 w-3 mr-1" />,
         text: 'تم التبديل',
         className: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
       },
