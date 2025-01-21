@@ -40,9 +40,9 @@ export const ProductCard = ({
   formatCurrency
 }: ProductCardProps) => {
   return (
-    <Card className="flex flex-col h-full hover:shadow-lg transition-all duration-300 dark:bg-gray-800 group animate-fade-in">
-      <CardHeader className="flex-none relative p-4 md:p-6">
-        <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2">
+    <Card className="group relative flex flex-col h-full overflow-hidden hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-1 dark:bg-gray-800 animate-fade-in">
+      <CardHeader className="flex-none relative p-4 md:p-6 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-700">
+        <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2 group-hover:text-primary-dark transition-colors">
           {product.title}
         </CardTitle>
         <div className="flex flex-wrap gap-2 mt-2">
@@ -52,7 +52,7 @@ export const ProductCard = ({
             language={language}
           />
           {product.isExchangeable && (
-            <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
+            <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm animate-scale-in">
               <Repeat className="h-3 w-3 md:h-4 md:w-4" />
               قابل للتبادل
             </Badge>
@@ -60,11 +60,11 @@ export const ProductCard = ({
         </div>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col p-3 md:p-6">
-        <div className="relative group-hover:transform group-hover:scale-105 transition-all duration-300 aspect-square mb-3 md:mb-4 overflow-hidden rounded-lg">
+        <div className="relative aspect-square mb-3 md:mb-4 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
           <img
             src={product.image}
             alt={product.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
             loading="lazy"
           />
           <ProductActions
@@ -73,11 +73,11 @@ export const ProductCard = ({
             onFavorite={() => onFavorite(product)}
           />
         </div>
-        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-3 md:mb-4 flex-grow line-clamp-3">
+        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-3 md:mb-4 flex-grow line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
           {product.description}
         </p>
         {product.isExchangeable && product.exchangeDescription && (
-          <div className="mb-3 md:mb-4 p-2 md:p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <div className="mb-3 md:mb-4 p-2 md:p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transform hover:scale-105 transition-transform">
             <p className="text-xs md:text-sm font-medium mb-1">يقبل التبادل مع:</p>
             <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
               {product.exchangeDescription}
