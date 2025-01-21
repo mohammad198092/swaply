@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, MapPin, Heart, Search } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -10,7 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from './ImageUpload';
+import { SearchBar } from './SearchBar';
+import { ExchangeSection } from './ExchangeSection';
+import { LocationInput } from './LocationInput';
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -31,70 +34,16 @@ export const ProductForm = () => {
     'أخرى'
   ];
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImages(Array.from(e.target.files));
-    }
-  };
-
-  const handleLocationClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation(`${position.coords.latitude}, ${position.coords.longitude}`);
-      });
-    }
-  };
-
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
   };
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto p-6">
-      {/* Search Section */}
-      <div className="mb-8">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="ابحث عن منتجات..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 w-full"
-          />
-        </div>
-      </div>
+      <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
       <form className="space-y-6">
-        <div>
-          <label className="block text-lg mb-2">صور المنتج</label>
-          <div className="border-2 border-dashed rounded-lg p-8 text-center">
-            <Input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-              id="images"
-            />
-            <label htmlFor="images" className="cursor-pointer">
-              <Upload className="mx-auto h-12 w-12 text-gray-400" />
-              <p className="mt-2">انقر لرفع الصور أو اسحبها وأفلتها هنا</p>
-            </label>
-            {images.length > 0 && (
-              <div className="mt-4 grid grid-cols-3 gap-4">
-                {images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={URL.createObjectURL(image)}
-                    alt={`Preview ${index + 1}`}
-                    className="rounded-lg object-cover h-24 w-full"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <ImageUpload onImagesChange={setImages} />
 
         <div>
           <label className="block text-lg mb-2">عنوان المنتج</label>
@@ -127,43 +76,19 @@ export const ProductForm = () => {
           />
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="text-lg">قابل للمبادلة</label>
-            <Switch
-              checked={isExchangeable}
-              onCheckedChange={setIsExchangeable}
-            />
-          </div>
-          
-          {isExchangeable && (
-            <div>
-              <label className="block text-lg mb-2">ما الذي تريد مبادلته به؟</label>
-              <Textarea
-                placeholder="اذكر المنتجات التي ترغب في مبادلة منتجك بها..."
-                value={exchangeDescription}
-                onChange={(e) => setExchangeDescription(e.target.value)}
-                rows={3}
-              />
-            </div>
-          )}
-        </div>
+        <ExchangeSection
+          isExchangeable={isExchangeable}
+          exchangeDescription={exchangeDescription}
+          onExchangeableChange={setIsExchangeable}
+          onDescriptionChange={setExchangeDescription}
+        />
 
         <div>
           <label className="block text-lg mb-2">الوصف</label>
           <Textarea placeholder="اكتب وصفاً تفصيلياً للمنتج" rows={5} />
         </div>
 
-        <div>
-          <label className="block text-lg mb-2">الموقع</label>
-          <div className="flex gap-2">
-            <Input value={location} placeholder="حدد موقعك" readOnly />
-            <Button type="button" onClick={handleLocationClick}>
-              <MapPin className="h-4 w-4 ml-2" />
-              تحديد الموقع
-            </Button>
-          </div>
-        </div>
+        <LocationInput location={location} onLocationChange={setLocation} />
 
         <div className="flex justify-between items-center">
           <Button type="submit" className="w-1/2">نشر المنتج</Button>
