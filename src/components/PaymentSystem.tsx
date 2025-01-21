@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { CreditCard, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -10,13 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-
-interface PaymentMethod {
-  id: string;
-  type: 'card' | 'apple_pay' | 'google_pay';
-  name: string;
-  icon: typeof CreditCard | typeof Smartphone;
-}
+import { PaymentMethods } from "./PaymentMethods";
+import { CardForm } from "./CardForm";
 
 export const PaymentSystem = () => {
   const [selectedMethod, setSelectedMethod] = useState<string>("");
@@ -24,12 +17,6 @@ export const PaymentSystem = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
-  
-  const paymentMethods: PaymentMethod[] = [
-    { id: "card", type: "card", name: "بطاقة ائتمانية", icon: CreditCard },
-    { id: "apple_pay", type: "apple_pay", name: "Apple Pay", icon: Smartphone },
-    { id: "google_pay", type: "google_pay", name: "Google Pay", icon: Smartphone },
-  ];
 
   const validateCardDetails = () => {
     if (selectedMethod === "card") {
@@ -112,58 +99,22 @@ export const PaymentSystem = () => {
         <CardDescription>اختر طريقة الدفع المناسبة</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {paymentMethods.map((method) => (
-            <Button
-              key={method.id}
-              variant={selectedMethod === method.id ? "default" : "outline"}
-              className="flex items-center justify-center gap-2 h-20"
-              onClick={() => setSelectedMethod(method.id)}
-              disabled={isProcessing}
-            >
-              <method.icon className="w-6 h-6" />
-              <span>{method.name}</span>
-            </Button>
-          ))}
-        </div>
+        <PaymentMethods
+          selectedMethod={selectedMethod}
+          setSelectedMethod={setSelectedMethod}
+          isProcessing={isProcessing}
+        />
         
         {selectedMethod === "card" && (
-          <div className="space-y-4 animate-fade-in">
-            <Input
-              placeholder="رقم البطاقة"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, '').slice(0, 16))}
-              disabled={isProcessing}
-              type="text"
-              maxLength={16}
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                placeholder="تاريخ الانتهاء (MM/YY)"
-                value={expiryDate}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, '');
-                  if (value.length <= 4) {
-                    setExpiryDate(
-                      value.length > 2 
-                        ? value.slice(0, 2) + '/' + value.slice(2)
-                        : value
-                    );
-                  }
-                }}
-                disabled={isProcessing}
-                maxLength={5}
-              />
-              <Input
-                placeholder="CVV"
-                value={cvv}
-                onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
-                type="password"
-                maxLength={3}
-                disabled={isProcessing}
-              />
-            </div>
-          </div>
+          <CardForm
+            cardNumber={cardNumber}
+            setCardNumber={setCardNumber}
+            expiryDate={expiryDate}
+            setExpiryDate={setExpiryDate}
+            cvv={cvv}
+            setCvv={setCvv}
+            isProcessing={isProcessing}
+          />
         )}
         
         <Button 
