@@ -41,30 +41,31 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <Card className="flex flex-col h-full hover:shadow-lg transition-all duration-300 dark:bg-gray-800 group animate-fade-in">
-      <CardHeader className="flex-none relative">
-        <CardTitle className="text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2">
+      <CardHeader className="flex-none relative p-4 md:p-6">
+        <CardTitle className="text-lg md:text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2">
           {product.title}
         </CardTitle>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-2">
           <ProductBadges
             isNew={product.isNew}
             discount={product.discount}
             language={language}
           />
           {product.isExchangeable && (
-            <Badge variant="secondary" className="flex items-center gap-1">
-              <Repeat className="h-4 w-4" />
+            <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
+              <Repeat className="h-3 w-3 md:h-4 md:w-4" />
               قابل للتبادل
             </Badge>
           )}
         </div>
       </CardHeader>
-      <CardContent className="flex-grow flex flex-col p-4">
-        <div className="relative group-hover:transform group-hover:scale-105 transition-all duration-300 aspect-square mb-4 overflow-hidden rounded-lg">
+      <CardContent className="flex-grow flex flex-col p-3 md:p-6">
+        <div className="relative group-hover:transform group-hover:scale-105 transition-all duration-300 aspect-square mb-3 md:mb-4 overflow-hidden rounded-lg">
           <img
             src={product.image}
             alt={product.title}
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <ProductActions
             onAddToCart={() => onAddToCart(product)}
@@ -72,19 +73,19 @@ export const ProductCard = ({
             onFavorite={() => onFavorite(product)}
           />
         </div>
-        <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
+        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-3 md:mb-4 flex-grow line-clamp-3">
           {product.description}
         </p>
         {product.isExchangeable && product.exchangeDescription && (
-          <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <p className="text-sm font-medium mb-1">يقبل التبادل مع:</p>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+          <div className="mb-3 md:mb-4 p-2 md:p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <p className="text-xs md:text-sm font-medium mb-1">يقبل التبادل مع:</p>
+            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
               {product.exchangeDescription}
             </p>
           </div>
         )}
-        <div className="mt-auto space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="mt-auto space-y-3 md:space-y-4">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <ProductPrice
               price={product.price}
               discount={product.discount}
