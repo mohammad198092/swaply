@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreditCard, Wallet } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,7 +13,7 @@ import { toast } from "sonner";
 
 interface PaymentMethod {
   id: string;
-  type: 'card' | 'wallet';
+  type: 'card';
   name: string;
   icon: typeof CreditCard;
 }
@@ -23,7 +23,6 @@ export const PaymentSystem = () => {
   
   const paymentMethods: PaymentMethod[] = [
     { id: "card", type: "card", name: "بطاقة ائتمانية", icon: CreditCard },
-    { id: "wallet", type: "wallet", name: "المحفظة الإلكترونية", icon: Wallet },
   ];
 
   const handlePayment = () => {
@@ -43,7 +42,7 @@ export const PaymentSystem = () => {
         <CardDescription>اختر طريقة الدفع المناسبة</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {paymentMethods.map((method) => (
             <Button
               key={method.id}
