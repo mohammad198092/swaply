@@ -3,7 +3,7 @@ import { ProductForm } from "@/components/ProductForm";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { translations } from "@/lib/translations";
-import { useLanguage } from "@/components/LanguageToggle";
+import { useLanguage } from "@/lib/language-context";
 
 const Index = () => {
   const { language } = useLanguage();
