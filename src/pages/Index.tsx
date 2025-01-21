@@ -4,6 +4,7 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { CarouselSection } from "@/components/sections/CarouselSection";
 import { MainContent } from "@/components/sections/MainContent";
 import { FooterSection } from "@/components/sections/FooterSection";
+import { AddProduct } from "@/components/AddProduct";
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <HeaderSection />
       
       <div className="container px-4 my-8 md:my-12">
+        <AddProduct />
         <FeaturesSection />
         <CarouselSection />
         <MainContent />
