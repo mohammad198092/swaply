@@ -19,20 +19,38 @@ export const translations = {
   },
   en: {
     title: "Swaply",
-    subtitle: "Your ideal platform for buying and selling used goods",
+    subtitle: "Your Premium Marketplace for Quality Used Goods",
     terms: "Terms of Use",
-    rights: "All rights reserved",
+    rights: "All Rights Reserved",
     search: "Search products...",
     categories: {
       all: "All Categories",
       electronics: "Electronics",
-      clothing: "Clothing",
-      furniture: "Furniture"
+      clothing: "Fashion",
+      furniture: "Home & Furniture"
     },
     searchStatus: {
       searching: "Searching...",
-      categoryChanged: "Category Changed",
+      categoryChanged: "Category Updated",
       searchingIn: "Searching in"
-    }
+    },
+    products: {
+      smartphone: {
+        title: "Premium Smartphone",
+        description: "High-end smartphone with advanced features"
+      },
+      laptop: {
+        title: "Professional Laptop",
+        description: "Business-grade laptop for professional use"
+      },
+      headphones: {
+        title: "Wireless Headphones",
+        description: "Premium wireless headphones with superior sound quality"
+      }
+    },
+    currency: "USD",
+    rating: "Rating",
+    ratingSuccess: "Thank you for rating!",
+    ratingDescription: "You rated this product"
   }
 };
