@@ -16,6 +16,11 @@ export const ProductGrid = () => {
   const { ratings, handleRatingChange } = useRatingManager();
   const { handleShare, handleFavorite } = useSocialActions();
 
+  const handleAddToCart = (product: any) => {
+    console.log('🛒 إضافة منتج للسلة:', product);
+    // سيتم التعامل مع إضافة المنتج للسلة من خلال CartManager
+  };
+
   useEffect(() => {
     console.log('🔍 بدء تحميل ProductGrid');
     console.log('👀 حالة اللغة الحالية:', language);
@@ -69,9 +74,11 @@ export const ProductGrid = () => {
         products={products}
         ratings={ratings}
         onRatingChange={handleRatingChange}
+        onAddToCart={handleAddToCart}
         onShare={handleShare}
         onFavorite={handleFavorite}
         formatCurrency={formatCurrency}
+        language={language}
       />
     </div>
   );
