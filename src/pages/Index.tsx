@@ -25,6 +25,7 @@ import { LoyaltyProgram } from "@/components/LoyaltyProgram";
 import { CustomerSupport } from "@/components/CustomerSupport";
 import { ProductPrice } from "@/components/ProductPrice";
 import { SocialShare } from "@/components/SocialShare";
+import { FavoriteProducts } from "@/components/FavoriteProducts";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -110,6 +111,7 @@ const Index = () => {
             <UserVerification />
             <NotificationSystem />
             <LoyaltyProgram />
+            <FavoriteProducts />
             <ProductPrice
               price={1500}
               discount={10}
