@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from '@/lib/language-context';
 import { translations } from '@/lib/translations';
 import { useToast } from "@/hooks/use-toast";
@@ -15,12 +15,14 @@ export const ProductGrid = () => {
   const { toast } = useToast();
 
   // Simulate loading state
-  useState(() => {
+  useEffect(() => {
+    console.log('Loading products...');
     const timer = setTimeout(() => {
       setIsLoading(false);
+      console.log('Products loaded!');
     }, 1000);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const handleRatingChange = (productId: number, rating: number) => {
     setRatings(prev => ({
