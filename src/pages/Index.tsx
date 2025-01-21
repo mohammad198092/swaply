@@ -21,6 +21,8 @@ import { AuctionSystem } from "@/components/AuctionSystem";
 import { SellerRating } from "@/components/SellerRating";
 import { NotificationSystem } from "@/components/NotificationSystem";
 import { PaymentSystem } from "@/components/PaymentSystem";
+import { LoyaltyProgram } from "@/components/LoyaltyProgram";
+import { CustomerSupport } from "@/components/CustomerSupport";
 
 const Index = () => {
   const { language } = useLanguage();
@@ -97,6 +99,7 @@ const Index = () => {
           <div className="space-y-4">
             <UserVerification />
             <NotificationSystem />
+            <LoyaltyProgram />
           </div>
           <div className="space-y-4">
             <AuctionSystem
@@ -110,6 +113,7 @@ const Index = () => {
               totalRatings={128}
             />
             <PaymentSystem />
+            <CustomerSupport />
           </div>
         </div>
 
