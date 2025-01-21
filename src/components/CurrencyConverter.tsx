@@ -5,13 +5,64 @@ import { useLanguage } from '@/lib/language-context';
 import { translations } from '@/lib/translations';
 import { useToast } from "@/hooks/use-toast";
 import { Calculator } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+type CurrencyRate = {
+  [key: string]: { [key: string]: number };
+};
+
+const CURRENCY_RATES: CurrencyRate = {
+  USD: {
+    SAR: 3.75,
+    EUR: 0.91,
+    GBP: 0.79,
+    JPY: 147.50,
+    AED: 3.67,
+    KWD: 0.31,
+    BHD: 0.38,
+    QAR: 3.64,
+    OMR: 0.38
+  },
+  SAR: {
+    USD: 0.27,
+    EUR: 0.24,
+    GBP: 0.21,
+    JPY: 39.33,
+    AED: 0.98,
+    KWD: 0.082,
+    BHD: 0.10,
+    QAR: 0.97,
+    OMR: 0.10
+  }
+};
 
 export const CurrencyConverter = () => {
   const [amount, setAmount] = useState('');
   const [convertedAmount, setConvertedAmount] = useState('');
+  const [fromCurrency, setFromCurrency] = useState('USD');
+  const [toCurrency, setToCurrency] = useState('SAR');
   const { language } = useLanguage();
   const { toast } = useToast();
   const t = translations[language];
+
+  const currencies = [
+    { value: 'USD', label: t.currency.usd },
+    { value: 'SAR', label: t.currency.sar },
+    { value: 'EUR', label: t.currency.eur },
+    { value: 'GBP', label: t.currency.gbp },
+    { value: 'JPY', label: t.currency.jpy },
+    { value: 'AED', label: t.currency.aed },
+    { value: 'KWD', label: t.currency.kwd },
+    { value: 'BHD', label: t.currency.bhd },
+    { value: 'QAR', label: t.currency.qar },
+    { value: 'OMR', label: t.currency.omr }
+  ];
 
   const handleConvert = () => {
     const numAmount = parseFloat(amount);
@@ -24,17 +75,28 @@ export const CurrencyConverter = () => {
       return;
     }
 
-    // سعر التحويل الثابت (يمكن تغييره لاحقاً ليكون ديناميكياً)
-    const rate = language === 'ar' ? 3.75 : 0.27;
+    let rate = 1;
+    if (fromCurrency === 'USD') {
+      rate = CURRENCY_RATES.USD[toCurrency] || 1;
+    } else if (fromCurrency === 'SAR') {
+      rate = CURRENCY_RATES.SAR[toCurrency] || 1;
+    }
+
     const result = (numAmount * rate).toFixed(2);
     setConvertedAmount(result);
 
     toast({
       title: t.currency.conversionSuccess,
-      description: `${numAmount} ${language === 'ar' ? t.currency.usd : t.currency.sar} = ${result} ${language === 'ar' ? t.currency.sar : t.currency.usd}`,
+      description: `${numAmount} ${fromCurrency} = ${result} ${toCurrency}`,
     });
 
-    console.log('Currency conversion:', { amount: numAmount, result, fromCurrency: language === 'ar' ? 'USD' : 'SAR' });
+    console.log('Currency conversion:', { 
+      amount: numAmount, 
+      result, 
+      fromCurrency, 
+      toCurrency,
+      rate 
+    });
   };
 
   return (
@@ -44,6 +106,50 @@ export const CurrencyConverter = () => {
           {t.currency.converter}
         </h3>
         
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              {t.currency.from}
+            </label>
+            <Select
+              value={fromCurrency}
+              onValueChange={setFromCurrency}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={t.currency.selectCurrency} />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.value} value={currency.value}>
+                    {currency.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              {t.currency.to}
+            </label>
+            <Select
+              value={toCurrency}
+              onValueChange={setToCurrency}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={t.currency.selectCurrency} />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((currency) => (
+                  <SelectItem key={currency.value} value={currency.value}>
+                    {currency.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         <div className="flex gap-2">
           <Input
             type="number"
@@ -61,7 +167,7 @@ export const CurrencyConverter = () => {
         {convertedAmount && (
           <div className="text-center p-2 bg-secondary rounded-md">
             <span className="font-semibold">
-              {convertedAmount} {language === 'ar' ? t.currency.sar : t.currency.usd}
+              {convertedAmount} {toCurrency}
             </span>
           </div>
         )}
