@@ -13,8 +13,9 @@ export const LanguageToggle = () => {
   }
 
   const handleLanguageToggle = () => {
+    const newLang = language === 'ar' ? 'en' : 'ar';
     toggleLanguage();
-    console.log('Language changed to:', language === 'ar' ? 'en' : 'ar');
+    console.log('Language changed to:', newLang);
     
     toast({
       title: language === 'ar' ? "Language Changed" : "تم تغيير اللغة",

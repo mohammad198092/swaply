@@ -16,6 +16,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     // Set initial direction based on language
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
+    document.documentElement.className = language === 'ar' ? 'rtl' : 'ltr';
     console.log('Initial language set to:', language);
   }, []);
 
@@ -24,6 +25,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       const newLang = prevLang === 'ar' ? 'en' : 'ar';
       document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
       document.documentElement.lang = newLang;
+      document.documentElement.className = newLang === 'ar' ? 'rtl' : 'ltr';
       console.log('Language toggled to:', newLang);
       return newLang;
     });
