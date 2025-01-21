@@ -11,7 +11,7 @@ import {
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 interface CartItem {
   id: number;
@@ -41,8 +41,10 @@ export const CartDrawer = ({
 }: CartDrawerProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const calculateTotal = useCallback(() => {
+    console.log('💰 حساب إجمالي السلة لـ', items.length, 'منتج');
     return items.reduce((total, item) => {
       const itemPrice = item.discount
         ? item.price - (item.price * item.discount) / 100
@@ -51,14 +53,31 @@ export const CartDrawer = ({
     }, 0);
   }, [items]);
 
-  const handleCheckout = () => {
-    console.log("التحويل إلى صفحة الدفع");
-    toast({
-      title: "تم تأكيد الطلب",
-      description: "جاري تحويلك إلى صفحة الدفع",
-    });
-    onClose();
-    navigate('/payment');
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+    console.log('🛒 بدء عملية الدفع');
+
+    try {
+      // محاكاة معالجة الطلب
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "تم تأكيد الطلب",
+        description: "جاري تحويلك إلى صفحة الدفع",
+      });
+      
+      onClose();
+      navigate('/payment');
+    } catch (error) {
+      console.error('❌ خطأ في عملية الدفع:', error);
+      toast({
+        title: "حدث خطأ",
+        description: "يرجى المحاولة مرة أخرى",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleQuantityUpdate = (id: number, newQuantity: number) => {
@@ -139,9 +158,16 @@ export const CartDrawer = ({
           <Button
             onClick={handleCheckout}
             className="w-full"
-            disabled={items.length === 0}
+            disabled={items.length === 0 || isProcessing}
           >
-            متابعة عملية الشراء
+            {isProcessing ? (
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                جاري المعالجة...
+              </div>
+            ) : (
+              'متابعة عملية الشراء'
+            )}
           </Button>
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
