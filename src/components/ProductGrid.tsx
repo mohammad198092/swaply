@@ -3,6 +3,10 @@ import { RatingSystem } from "./RatingSystem";
 import { useState } from "react";
 import { useLanguage } from '@/lib/language-context';
 import { translations } from '@/lib/translations';
+import { Badge } from "@/components/ui/badge";
+import { Heart, Share2, ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 interface Product {
   id: number;
@@ -10,12 +14,15 @@ interface Product {
   price: number;
   image: string;
   description: string;
+  discount?: number;
+  isNew?: boolean;
 }
 
 export const ProductGrid = () => {
   const [ratings, setRatings] = useState<{ [key: number]: number }>({});
   const { language } = useLanguage();
   const t = translations[language];
+  const { toast } = useToast();
   
   const products: Product[] = [
     {
@@ -23,21 +30,25 @@ export const ProductGrid = () => {
       title: t.products.smartphone.title,
       price: 999,
       image: "/placeholder.svg",
-      description: t.products.smartphone.description
+      description: t.products.smartphone.description,
+      discount: 10,
+      isNew: true
     },
     {
       id: 2,
       title: t.products.laptop.title,
       price: 1499,
       image: "/placeholder.svg",
-      description: t.products.laptop.description
+      description: t.products.laptop.description,
+      isNew: true
     },
     {
       id: 3,
       title: t.products.headphones.title,
       price: 199,
       image: "/placeholder.svg",
-      description: t.products.headphones.description
+      description: t.products.headphones.description,
+      discount: 15
     }
   ];
 
@@ -49,10 +60,30 @@ export const ProductGrid = () => {
     console.log(`Rating for product ${productId} changed to:`, rating);
   };
 
-  const formatCurrency = (price: number) => {
+  const formatCurrency = (price: number, discount?: number) => {
+    const finalPrice = discount ? price - (price * discount / 100) : price;
     return language === 'ar' 
-      ? `${price} ${t.currency}`
-      : `$${price}`;
+      ? `${finalPrice} ${t.currency}`
+      : `$${finalPrice}`;
+  };
+
+  const handleAddToCart = (product: Product) => {
+    toast({
+      title: language === 'ar' ? "تمت الإضافة للسلة" : "Added to Cart",
+      description: language === 'ar' 
+        ? `تمت إضافة ${product.title} إلى سلة التسوق`
+        : `${product.title} has been added to your cart`,
+    });
+  };
+
+  const handleShare = (product: Product) => {
+    // Share functionality would go here
+    toast({
+      title: language === 'ar' ? "مشاركة المنتج" : "Share Product",
+      description: language === 'ar' 
+        ? `تمت مشاركة ${product.title}`
+        : `${product.title} has been shared`,
+    });
   };
 
   return (
@@ -61,32 +92,78 @@ export const ProductGrid = () => {
         {products.map((product) => (
           <Card 
             key={product.id} 
-            className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800"
+            className="flex flex-col h-full hover:shadow-lg transition-all duration-300 dark:bg-gray-800 group"
           >
-            <CardHeader className="flex-none">
+            <CardHeader className="flex-none relative">
               <CardTitle className="text-xl font-semibold text-primary dark:text-primary-foreground line-clamp-2">
                 {product.title}
               </CardTitle>
+              <div className="absolute top-2 right-2 space-x-2 rtl:space-x-reverse">
+                {product.isNew && (
+                  <Badge className="bg-green-500">
+                    {language === 'ar' ? 'جديد' : 'New'}
+                  </Badge>
+                )}
+                {product.discount && (
+                  <Badge className="bg-red-500">
+                    {`${product.discount}% ${language === 'ar' ? 'خصم' : 'OFF'}`}
+                  </Badge>
+                )}
+              </div>
             </CardHeader>
-            <CardContent className="flex-grow flex flex-col">
-              <div className="relative group aspect-square mb-4 overflow-hidden rounded-md">
+            <CardContent className="flex-grow flex flex-col p-4">
+              <div className="relative group-hover:transform group-hover:scale-105 transition-all duration-300 aspect-square mb-4 overflow-hidden rounded-lg">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="rounded-full"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="rounded-full"
+                    onClick={() => handleShare(product)}
+                  >
+                    <Share2 className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    className="rounded-full"
+                  >
+                    <Heart className="h-5 w-5" />
+                  </Button>
+                </div>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
                 {product.description}
               </p>
               <div className="mt-auto space-y-4">
-                <p className="text-lg font-bold text-primary">
-                  {formatCurrency(product.price)}
-                </p>
-                <RatingSystem
-                  rating={ratings[product.id] || 0}
-                  onRatingChange={(rating) => handleRatingChange(product.id, rating)}
-                />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-lg font-bold text-primary">
+                      {formatCurrency(product.price, product.discount)}
+                    </p>
+                    {product.discount && (
+                      <p className="text-sm text-gray-500 line-through">
+                        {formatCurrency(product.price)}
+                      </p>
+                    )}
+                  </div>
+                  <RatingSystem
+                    rating={ratings[product.id] || 0}
+                    onRatingChange={(rating) => handleRatingChange(product.id, rating)}
+                  />
+                </div>
               </div>
             </CardContent>
           </Card>
