@@ -36,11 +36,11 @@ export const ProductGrid = () => {
     // Calculate price after discount if applicable
     const priceAfterDiscount = discount ? price - (price * discount / 100) : price;
     
-    // Add 10% administrative fee
-    const adminFee = priceAfterDiscount * 0.10;
+    // Add 2% administrative fee (changed from 10%)
+    const adminFee = priceAfterDiscount * 0.02;
     const finalPrice = priceAfterDiscount + adminFee;
     
-    console.log(`Original price: ${price}, After discount: ${priceAfterDiscount}, Admin fee: ${adminFee}, Final price: ${finalPrice}`);
+    console.log(`Original price: ${price}, After discount: ${priceAfterDiscount}, Admin fee (2%): ${adminFee}, Final price: ${finalPrice}`);
     
     return language === 'ar' 
       ? `${finalPrice.toFixed(2)} ${t.currency}`

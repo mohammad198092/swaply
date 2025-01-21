@@ -7,7 +7,7 @@ interface ProductPriceProps {
 
 export const ProductPrice = ({ price, discount, language, formatCurrency }: ProductPriceProps) => {
   const originalPrice = discount ? price - (price * discount / 100) : price;
-  const adminFee = originalPrice * 0.10;
+  const adminFee = originalPrice * 0.02;
   const finalPrice = originalPrice + adminFee;
 
   return (
@@ -25,7 +25,7 @@ export const ProductPrice = ({ price, discount, language, formatCurrency }: Prod
           {language === 'ar' ? 'السعر بعد الخصم:' : 'Price after discount:'} {originalPrice.toFixed(2)}
         </p>
         <p className="text-xs text-primary-600">
-          {language === 'ar' ? 'رسوم إدارية (10%):' : 'Admin fee (10%):'} {adminFee.toFixed(2)}
+          {language === 'ar' ? 'رسوم إدارية (2%):' : 'Admin fee (2%):'} {adminFee.toFixed(2)}
         </p>
       </div>
     </div>
