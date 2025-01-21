@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart, MessageCircle, Star } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -14,7 +13,8 @@ import { ImageUpload } from './ImageUpload';
 import { SearchBar } from './SearchBar';
 import { ExchangeSection } from './ExchangeSection';
 import { LocationInput } from './LocationInput';
-import { useToast } from "@/hooks/use-toast";
+import { RatingSystem } from './RatingSystem';
+import { InteractionButtons } from './InteractionButtons';
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -26,7 +26,6 @@ export const ProductForm = () => {
   const [isExchangeable, setIsExchangeable] = useState(false);
   const [exchangeDescription, setExchangeDescription] = useState('');
   const [rating, setRating] = useState(0);
-  const { toast } = useToast();
 
   const categories = [
     'إلكترونيات',
@@ -39,21 +38,6 @@ export const ProductForm = () => {
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
-  };
-
-  const handleRatingClick = (value: number) => {
-    setRating(value);
-    toast({
-      title: "تم التقييم بنجاح",
-      description: `لقد قمت بتقييم المنتج ${value} نجوم`
-    });
-  };
-
-  const handleMessageClick = () => {
-    toast({
-      title: "المحادثة المباشرة",
-      description: "سيتم فتح المحادثة قريباً"
-    });
   };
 
   return (
@@ -109,45 +93,14 @@ export const ProductForm = () => {
         <LocationInput location={location} onLocationChange={setLocation} />
 
         <div className="flex flex-col gap-4">
-          {/* Rating System */}
-          <div className="flex items-center gap-2">
-            <span className="text-lg">التقييم:</span>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <button
-                key={star}
-                type="button"
-                onClick={() => handleRatingClick(star)}
-                className={`focus:outline-none ${star <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-              >
-                <Star className="h-6 w-6" fill={star <= rating ? 'currentColor' : 'none'} />
-              </button>
-            ))}
-          </div>
+          <RatingSystem rating={rating} onRatingChange={setRating} />
 
           <div className="flex justify-between items-center">
             <Button type="submit" className="w-1/3">نشر المنتج</Button>
-            
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleMessageClick}
-                className="flex items-center gap-2"
-              >
-                <MessageCircle className="h-4 w-4" />
-                محادثة
-              </Button>
-
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleFavoriteClick}
-                className={`flex items-center gap-2 ${isFavorite ? 'text-red-500' : ''}`}
-              >
-                <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
-                {isFavorite ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
-              </Button>
-            </div>
+            <InteractionButtons 
+              isFavorite={isFavorite}
+              onFavoriteClick={handleFavoriteClick}
+            />
           </div>
         </div>
       </form>
