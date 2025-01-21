@@ -10,7 +10,7 @@ const Index = () => {
       
       <header className="bg-primary text-white py-8 text-center">
         <div className="container">
-          <h1 className="text-4xl font-bold mb-4">سوق التبادل</h1>
+          <h1 className="text-4xl font-bold mb-4">Swaply</h1>
           <p className="text-xl opacity-90">منصتك المثالية لبيع وشراء السلع</p>
         </div>
       </header>
