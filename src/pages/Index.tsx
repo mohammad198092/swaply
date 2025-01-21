@@ -1,5 +1,6 @@
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProductForm } from "@/components/ProductForm";
+import { SearchProducts } from "@/components/SearchProducts";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { translations } from "@/lib/translations";
@@ -55,6 +56,8 @@ const Index = () => {
       </header>
 
       <div className="container my-8 animate-scale-in">
+        <SearchProducts />
+        
         <Carousel
           opts={{
             align: "start",
