@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductGrid } from "@/components/ProductGrid";
+import { CategoryList } from "@/components/CategoryList";
 import { UserVerification } from "@/components/UserVerification";
 import { NotificationSystem } from "@/components/NotificationSystem";
 import { LoyaltyProgram } from "@/components/LoyaltyProgram";
@@ -24,6 +25,12 @@ export const MainContent = () => {
 
   return (
     <div className="container px-4 my-8 md:my-12">
+      <Card className="mb-8 bg-white dark:bg-gray-800 shadow-lg">
+        <CardContent className="p-4">
+          <CategoryList />
+        </CardContent>
+      </Card>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         <div className="space-y-4">
           <UserVerification />
