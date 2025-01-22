@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Clock, DollarSign, TrendingUp } from "lucide-react";
+import { Clock, DollarSign, TrendingUp, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+interface Bid {
+  amount: number;
+  username: string;
+  timestamp: Date;
+}
 
 interface AuctionProps {
   productId: string;
@@ -15,6 +22,7 @@ interface AuctionProps {
 export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps) => {
   const [bidAmount, setBidAmount] = useState<number>(currentPrice);
   const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [bidHistory, setBidHistory] = useState<Bid[]>([]);
   
   useEffect(() => {
     const timer = setInterval(() => {
@@ -32,7 +40,15 @@ export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps
       return;
     }
     
-    console.log("تم تقديم عرض جديد:", { productId, bidAmount });
+    // محاكاة إضافة مزايدة جديدة
+    const newBid: Bid = {
+      amount: bidAmount,
+      username: "مستخدم" + Math.floor(Math.random() * 1000), // في الواقع سيكون اسم المستخدم الحقيقي
+      timestamp: new Date()
+    };
+    
+    setBidHistory(prev => [...prev, newBid]);
+    console.log("تم تقديم عرض جديد:", { productId, ...newBid });
     toast.success("تم تقديم عرضك بنجاح!");
   };
 
@@ -71,6 +87,32 @@ export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps
           <span className="font-bold text-xl">{currentPrice} ريال</span>
           <span className="text-sm text-gray-500 mr-auto">السعر الحالي</span>
         </div>
+        
+        <ScrollArea className="h-32 rounded-md border p-2">
+          {bidHistory.length > 0 ? (
+            <div className="space-y-2">
+              {bidHistory.map((bid, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between text-sm p-2 bg-gray-50 dark:bg-gray-700 rounded"
+                >
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-gray-500" />
+                    <span>{bid.username}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">{bid.amount} ريال</span>
+                    <span className="text-xs text-gray-500">
+                      {bid.timestamp.toLocaleTimeString('ar-SA')}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500 py-8">لا توجد مزايدات حتى الآن</p>
+          )}
+        </ScrollArea>
         
         <div className="space-y-2">
           <div className="flex gap-2">
