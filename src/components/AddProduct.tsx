@@ -67,6 +67,12 @@ export const AddProduct = () => {
     }
   };
 
+  const handleImagesChange = (uploadedImages: File[]) => {
+    // تحويل الملفات إلى URLs
+    const imageUrls = uploadedImages.map(file => URL.createObjectURL(file));
+    setImages(imageUrls);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto p-4">
       <div className="space-y-2">
@@ -106,7 +112,7 @@ export const AddProduct = () => {
 
       <ImageUpload
         images={images}
-        onImagesChange={setImages}
+        onImagesChange={handleImagesChange}
         disabled={isSubmitting}
       />
 

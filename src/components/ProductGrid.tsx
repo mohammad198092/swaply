@@ -11,16 +11,10 @@ import { useSocialActions } from "./social/SocialActions";
 
 export const ProductGrid = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   const { language } = useLanguage();
   const t = translations[language];
   const { ratings, handleRatingChange } = useRatingManager();
   const { handleShare, handleFavorite } = useSocialActions();
-
-  const handleImageLoad = useCallback((imageUrl: string) => {
-    setLoadedImages(prev => new Set([...prev, imageUrl]));
-    console.log(`✅ تم تحميل الصورة: ${imageUrl}`);
-  }, []);
 
   const handleAddToCart = (product: any) => {
     console.log('🛒 إضافة منتج للسلة:', product);
@@ -36,7 +30,6 @@ export const ProductGrid = () => {
         return new Promise((resolve) => {
           const img = new Image();
           img.onload = () => {
-            handleImageLoad(product.image);
             resolve(null);
           };
           img.onerror = () => {
@@ -101,7 +94,6 @@ export const ProductGrid = () => {
         onFavorite={handleFavorite}
         formatCurrency={formatCurrency}
         language={language}
-        loadedImages={loadedImages}
       />
     </div>
   );
