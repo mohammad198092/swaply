@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useLanguage } from '@/lib/language-context';
 import { translations } from '@/lib/translations';
 import { ProductList } from "./ProductList";
@@ -11,14 +11,19 @@ import { useSocialActions } from "./social/SocialActions";
 
 export const ProductGrid = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   const { language } = useLanguage();
   const t = translations[language];
   const { ratings, handleRatingChange } = useRatingManager();
   const { handleShare, handleFavorite } = useSocialActions();
 
+  const handleImageLoad = useCallback((imageUrl: string) => {
+    setLoadedImages(prev => new Set([...prev, imageUrl]));
+    console.log(`✅ تم تحميل الصورة: ${imageUrl}`);
+  }, []);
+
   const handleAddToCart = (product: any) => {
     console.log('🛒 إضافة منتج للسلة:', product);
-    // سيتم التعامل مع إضافة المنتج للسلة من خلال CartManager
   };
 
   useEffect(() => {
@@ -26,13 +31,30 @@ export const ProductGrid = () => {
     console.log('👀 حالة اللغة الحالية:', language);
     console.log('📦 عدد المنتجات المتوفرة:', products.length);
     
-    const timer = setTimeout(() => {
+    const preloadImages = async () => {
+      const imagePromises = products.map(product => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            handleImageLoad(product.image);
+            resolve(null);
+          };
+          img.onerror = () => {
+            console.error(`❌ فشل تحميل الصورة: ${product.image}`);
+            resolve(null);
+          };
+          img.src = product.image;
+        });
+      });
+
+      await Promise.all(imagePromises);
       setIsLoading(false);
-      console.log('✅ اكتمل تحميل ProductGrid');
-    }, 1000);
+      console.log('✅ اكتمل تحميل جميع الصور');
+    };
+
+    preloadImages();
     
     return () => {
-      clearTimeout(timer);
       console.log('🔄 تم تنظيف ProductGrid');
     };
   }, [language]);
@@ -79,6 +101,7 @@ export const ProductGrid = () => {
         onFavorite={handleFavorite}
         formatCurrency={formatCurrency}
         language={language}
+        loadedImages={loadedImages}
       />
     </div>
   );
