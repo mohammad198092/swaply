@@ -22,33 +22,43 @@ export const CustomerSupport = () => {
     }
   ]);
   const [newMessage, setNewMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSendMessage = () => {
-    if (!newMessage.trim()) return;
+  const handleSendMessage = async () => {
+    if (!newMessage.trim() || isSending) return;
 
-    console.log("إرسال رسالة جديدة:", newMessage);
-    
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: newMessage,
-      isUser: true,
-      timestamp: new Date()
-    };
+    try {
+      setIsSending(true);
+      console.log("إرسال رسالة جديدة:", newMessage);
+      
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        text: newMessage,
+        isUser: true,
+        timestamp: new Date()
+      };
 
-    setMessages(prev => [...prev, userMessage]);
-    setNewMessage("");
-    
-    // محاكاة رد تلقائي
-    setTimeout(() => {
+      setMessages(prev => [...prev, userMessage]);
+      setNewMessage("");
+      
+      // محاكاة رد تلقائي بعد ثانية واحدة
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       const autoResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: "شكراً لتواصلك معنا. سيقوم أحد ممثلي خدمة العملاء بالرد عليك قريباً.",
         isUser: false,
         timestamp: new Date()
       };
+      
       setMessages(prev => [...prev, autoResponse]);
-      toast.success("تم استلام رسالتك!");
-    }, 1000);
+      toast.success("تم استلام رسالتك بنجاح!");
+    } catch (error) {
+      console.error("خطأ في إرسال الرسالة:", error);
+      toast.error("عذراً، حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -58,7 +68,7 @@ export const CustomerSupport = () => {
         <MessageCircle className="h-5 w-5 text-primary" />
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="h-[300px] overflow-y-auto space-y-4 mb-4">
+        <div className="h-[300px] overflow-y-auto space-y-4 mb-4 p-2">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -71,8 +81,8 @@ export const CustomerSupport = () => {
                     : 'bg-gray-100 dark:bg-gray-700'
                 }`}
               >
-                <p className="text-sm">{message.text}</p>
-                <span className="text-xs opacity-70">
+                <p className="text-sm break-words">{message.text}</p>
+                <span className="text-xs opacity-70 mt-1 block">
                   {message.timestamp.toLocaleTimeString('ar-SA')}
                 </span>
               </div>
@@ -86,8 +96,14 @@ export const CustomerSupport = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="اكتب رسالتك هنا..."
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            disabled={isSending}
+            className="flex-1"
           />
-          <Button onClick={handleSendMessage}>
+          <Button 
+            onClick={handleSendMessage} 
+            disabled={isSending}
+            className="min-w-[40px]"
+          >
             <Send className="h-4 w-4" />
           </Button>
         </div>
