@@ -19,6 +19,7 @@ import { SocialShare } from './SocialShare';
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
@@ -38,6 +39,13 @@ export const ProductForm = () => {
     'أخرى'
   ];
 
+  const handleImagesChange = (newImages: File[]) => {
+    setImages(newImages);
+    // Create URLs for preview
+    const urls = newImages.map(file => URL.createObjectURL(file));
+    setImageUrls(urls);
+  };
+
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
   };
@@ -47,7 +55,10 @@ export const ProductForm = () => {
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
       <form className="space-y-6">
-        <ImageUpload onImagesChange={setImages} />
+        <ImageUpload
+          images={imageUrls}
+          onImagesChange={handleImagesChange}
+        />
 
         <div>
           <label className="block text-lg mb-2">عنوان المنتج</label>
