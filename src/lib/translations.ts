@@ -6,11 +6,24 @@ export const translations = {
     rights: "جميع الحقوق محفوظة",
     search: "ابحث عن المنتجات...",
     advertiseHere: "أعلن هنا",
+    notifications: {
+      title: "الإشعارات",
+      noNotifications: "لا توجد إشعارات",
+      markAsRead: "تحديد كمقروء",
+      dismiss: "حذف",
+      deleted: "تم حذف الإشعار",
+      deletedAll: "تم حذف جميع الإشعارات"
+    },
     categories: {
       all: "كل الفئات",
       electronics: "إلكترونيات",
       clothing: "ملابس",
-      furniture: "أثاث"
+      furniture: "أثاث",
+      computers: "حواسيب",
+      accessories: "اكسسوارات",
+      vehicles: "سيارات",
+      watches: "ساعات",
+      cameras: "كاميرات"
     },
     searchStatus: {
       searching: "جاري البحث...",
@@ -57,7 +70,18 @@ export const translations = {
     },
     rating: "التقييم",
     ratingSuccess: "تم التقييم بنجاح",
-    ratingDescription: "لقد قمت بتقييم المنتج"
+    ratingDescription: "لقد قمت بتقييم المنتج",
+    seller: {
+      rating: "تقييم البائع",
+      totalRatings: "عدد التقييمات",
+      averageRating: "متوسط التقييم"
+    },
+    buttons: {
+      addToCart: "إضافة للسلة",
+      share: "مشاركة",
+      favorite: "المفضلة",
+      viewDetails: "عرض التفاصيل"
+    }
   },
   en: {
     title: "Swaply",
@@ -66,11 +90,24 @@ export const translations = {
     rights: "All Rights Reserved",
     search: "Search products...",
     advertiseHere: "Advertise Here",
+    notifications: {
+      title: "Notifications",
+      noNotifications: "No notifications",
+      markAsRead: "Mark as read",
+      dismiss: "Dismiss",
+      deleted: "Notification deleted",
+      deletedAll: "All notifications deleted"
+    },
     categories: {
       all: "All Categories",
       electronics: "Electronics",
       clothing: "Fashion",
-      furniture: "Home & Furniture"
+      furniture: "Home & Furniture",
+      computers: "Computers",
+      accessories: "Accessories",
+      vehicles: "Vehicles",
+      watches: "Watches",
+      cameras: "Cameras"
     },
     searchStatus: {
       searching: "Searching...",
@@ -117,6 +154,17 @@ export const translations = {
     },
     rating: "Rating",
     ratingSuccess: "Thank you for rating!",
-    ratingDescription: "You rated this product"
+    ratingDescription: "You rated this product",
+    seller: {
+      rating: "Seller Rating",
+      totalRatings: "Total Ratings",
+      averageRating: "Average Rating"
+    },
+    buttons: {
+      addToCart: "Add to Cart",
+      share: "Share",
+      favorite: "Favorite",
+      viewDetails: "View Details"
+    }
   }
 };

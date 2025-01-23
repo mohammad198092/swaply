@@ -10,26 +10,30 @@ import { Badge } from "@/components/ui/badge";
 import { NotificationItem } from "./NotificationItem";
 import { Notification } from "@/types/notification";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from '@/lib/language-context';
+import { translations } from '@/lib/translations';
 
 export const NotificationSystem = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const { toast } = useToast();
+  const { language } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     // محاكاة جلب الإشعارات
     const mockNotifications: Notification[] = [
       {
         id: "1",
-        title: "طلب جديد",
-        message: "تم استلام طلبك بنجاح",
+        title: language === 'ar' ? "طلب جديد" : "New Order",
+        message: language === 'ar' ? "تم استلام طلبك بنجاح" : "Your order has been received successfully",
         type: "order",
         read: false,
         timestamp: new Date()
       },
       {
         id: "2",
-        title: "تأكيد الدفع",
-        message: "تم تأكيد عملية الدفع",
+        title: language === 'ar' ? "تأكيد الدفع" : "Payment Confirmation",
+        message: language === 'ar' ? "تم تأكيد عملية الدفع" : "Payment has been confirmed",
         type: "payment",
         read: false,
         timestamp: new Date(Date.now() - 3600000)
@@ -37,16 +41,16 @@ export const NotificationSystem = () => {
     ];
 
     setNotifications(mockNotifications);
-    console.log('تم تحميل الإشعارات:', mockNotifications);
-  }, []);
+    console.log(language === 'ar' ? 'تم تحميل الإشعارات:' : 'Notifications loaded:', mockNotifications);
+  }, [language]);
 
   useEffect(() => {
     const handleDismissAll = () => {
-      console.log('جاري حذف جميع الإشعارات');
+      console.log(language === 'ar' ? 'جاري حذف جميع الإشعارات' : 'Dismissing all notifications');
       setNotifications([]);
       toast({
-        title: "تم حذف الإشعارات",
-        description: "تم حذف جميع الإشعارات بنجاح"
+        title: t.notifications.deletedAll,
+        description: t.notifications.deletedAll
       });
     };
 
@@ -55,21 +59,21 @@ export const NotificationSystem = () => {
     return () => {
       window.removeEventListener('dismissAllNotifications', handleDismissAll);
     };
-  }, [toast]);
+  }, [toast, language, t.notifications.deletedAll]);
 
   const markAsRead = (id: string) => {
     setNotifications(notifications.map(notif =>
       notif.id === id ? { ...notif, read: true } : notif
     ));
-    console.log('تم تحديد الإشعار كمقروء:', id);
+    console.log(language === 'ar' ? 'تم تحديد الإشعار كمقروء:' : 'Notification marked as read:', id);
   };
 
   const dismissNotification = (id: string) => {
     setNotifications(notifications.filter(notif => notif.id !== id));
-    console.log('تم حذف الإشعار:', id);
+    console.log(language === 'ar' ? 'تم حذف الإشعار:' : 'Notification dismissed:', id);
     toast({
-      title: "تم حذف الإشعار",
-      description: "تم حذف الإشعار بنجاح"
+      title: t.notifications.deleted,
+      description: t.notifications.deleted
     });
   };
 
@@ -78,7 +82,7 @@ export const NotificationSystem = () => {
   return (
     <Card className="shadow-lg animate-fade-in">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-semibold">الإشعارات</CardTitle>
+        <CardTitle className="text-lg font-semibold">{t.notifications.title}</CardTitle>
         <div className="relative">
           <Bell className="w-4 h-4 text-gray-500" />
           {unreadCount > 0 && (
@@ -90,7 +94,7 @@ export const NotificationSystem = () => {
       </CardHeader>
       <CardContent className="space-y-4 max-h-[400px] overflow-y-auto">
         {notifications.length === 0 ? (
-          <p className="text-center text-gray-500">لا توجد إشعارات</p>
+          <p className="text-center text-gray-500">{t.notifications.noNotifications}</p>
         ) : (
           notifications.map((notification) => (
             <NotificationItem
