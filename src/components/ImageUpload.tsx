@@ -5,11 +5,13 @@ import { Button } from './ui/button';
 import { useToast } from "@/hooks/use-toast";
 
 interface ImageUploadProps {
+  images: string[];
   onImagesChange: (images: File[]) => void;
+  disabled?: boolean;
 }
 
-export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
-  const [images, setImages] = useState<File[]>([]);
+export const ImageUpload = ({ images, onImagesChange, disabled }: ImageUploadProps) => {
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const { toast } = useToast();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +31,7 @@ export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
         return true;
       });
 
-      if (images.length + validImages.length > 5) {
+      if (uploadedFiles.length + validImages.length > 5) {
         toast({
           title: "عدد الصور كثير",
           description: "يمكنك تحميل 5 صور كحد أقصى",
@@ -38,17 +40,17 @@ export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
         return;
       }
 
-      const updatedImages = [...images, ...validImages];
-      setImages(updatedImages);
-      onImagesChange(updatedImages);
-      console.log('تم تحميل الصور:', updatedImages);
+      const updatedFiles = [...uploadedFiles, ...validImages];
+      setUploadedFiles(updatedFiles);
+      onImagesChange(updatedFiles);
+      console.log('تم تحميل الصور:', updatedFiles);
     }
   };
 
   const removeImage = (index: number) => {
-    const updatedImages = images.filter((_, i) => i !== index);
-    setImages(updatedImages);
-    onImagesChange(updatedImages);
+    const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
+    setUploadedFiles(updatedFiles);
+    onImagesChange(updatedFiles);
     console.log('تم حذف الصورة رقم:', index);
   };
 
@@ -63,8 +65,9 @@ export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
           onChange={handleImageUpload}
           className="hidden"
           id="images"
+          disabled={disabled}
         />
-        <label htmlFor="images" className="cursor-pointer block">
+        <label htmlFor="images" className={`cursor-pointer block ${disabled ? 'opacity-50' : ''}`}>
           <Upload className="mx-auto h-12 w-12 text-gray-400" />
           <p className="mt-2">انقر لرفع الصور أو اسحبها وأفلتها هنا</p>
           <p className="text-sm text-gray-500 mt-1">
@@ -77,7 +80,7 @@ export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
             {images.map((image, index) => (
               <div key={index} className="relative group">
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={image}
                   alt={`Preview ${index + 1}`}
                   className="rounded-lg object-cover w-full h-24 hover:opacity-75 transition-opacity"
                 />
@@ -86,6 +89,7 @@ export const ImageUpload = ({ onImagesChange }: ImageUploadProps) => {
                   size="icon"
                   className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
                   onClick={() => removeImage(index)}
+                  disabled={disabled}
                 >
                   <X className="h-4 w-4" />
                 </Button>
