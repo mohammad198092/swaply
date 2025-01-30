@@ -20,7 +20,7 @@ interface AuctionProps {
 }
 
 export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps) => {
-  const [bidAmount, setBidAmount] = useState<number>(currentPrice);
+  const [bidAmount, setBidAmount] = useState<number>(currentPrice + 100);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [bidHistory, setBidHistory] = useState<Bid[]>([]);
   
@@ -35,8 +35,9 @@ export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps
   }, [endTime]);
   
   const handleBid = () => {
-    if (bidAmount <= currentPrice) {
-      toast.error("يجب أن يكون المبلغ أعلى من السعر الحالي");
+    // تحقق من أن المبلغ أعلى من السعر الحالي بـ 100 ريال على الأقل
+    if (bidAmount < currentPrice + 100) {
+      toast.error("يجب أن يكون المبلغ أعلى من السعر الحالي بـ 100 ريال على الأقل");
       return;
     }
     
@@ -122,6 +123,7 @@ export const AuctionSystem = ({ productId, currentPrice, endTime }: AuctionProps
               onChange={(e) => setBidAmount(Number(e.target.value))}
               placeholder="أدخل مبلغ المزايدة"
               className="flex-1"
+              min={currentPrice + 100}
             />
             <Button onClick={handleBid} className="w-32">
               تقديم عرض
