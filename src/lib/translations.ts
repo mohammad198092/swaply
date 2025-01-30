@@ -6,6 +6,24 @@ export const translations = {
     rights: "جميع الحقوق محفوظة",
     search: "ابحث عن المنتجات...",
     advertiseHere: "أعلن هنا",
+    productTitle: "عنوان المنتج",
+    enterProductTitle: "أدخل عنوان المنتج",
+    category: "الفئة",
+    selectCategory: "اختر الفئة",
+    price: "السعر",
+    enterPrice: "أدخل السعر",
+    description: "الوصف",
+    productDescription: "اكتب وصفاً تفصيلياً للمنتج",
+    publishProduct: "نشر المنتج",
+    exchangeable: "قابل للتبادل",
+    availableForExchange: "متاح للتبادل",
+    whatToExchange: "ماذا تريد أن تتبادل به؟",
+    exchangeDescriptionPlaceholder: "اكتب ما تريد مقابل منتجك...",
+    exchangeDescriptionHelp: "اكتب وصفاً واضحاً لما تريد مقابل منتجك",
+    exchangeEnabled: "تم تفعيل خاصية التبادل",
+    exchangeDisabled: "تم تعطيل خاصية التبادل",
+    exchangeEnabledDesc: "يمكن للمستخدمين الآن عرض منتجات للتبادل",
+    exchangeDisabledDesc: "تم إيقاف خاصية التبادل لهذا المنتج",
     notifications: {
       title: "الإشعارات",
       noNotifications: "لا توجد إشعارات",
@@ -25,57 +43,7 @@ export const translations = {
       watches: "ساعات",
       cameras: "كاميرات"
     },
-    searchStatus: {
-      searching: "جاري البحث...",
-      categoryChanged: "تم تغيير الفئة",
-      searchingIn: "البحث في"
-    },
-    products: {
-      smartphone: {
-        title: "هاتف ذكي",
-        description: "هاتف ذكي بمواصفات عالية"
-      },
-      laptop: {
-        title: "حاسوب محمول",
-        description: "حاسوب محمول للاستخدام المهني"
-      },
-      headphones: {
-        title: "سماعات لاسلكية",
-        description: "سماعات لاسلكية بجودة صوت عالية"
-      }
-    },
-    currency: {
-      converter: "محول العملات",
-      convert: "تحويل",
-      enterAmount: "أدخل المبلغ",
-      invalidAmount: "مبلغ غير صالح",
-      enterValidAmount: "الرجاء إدخال مبلغ صحيح",
-      conversionSuccess: "تم التحويل بنجاح",
-      selectCurrency: "اختر العملة",
-      from: "من",
-      to: "إلى",
-      sar: "ريال سعودي",
-      usd: "دولار أمريكي",
-      eur: "يورو",
-      gbp: "جنيه إسترليني",
-      jpy: "ين ياباني",
-      aed: "درهم إماراتي",
-      kwd: "دينار كويتي",
-      bhd: "دينار بحريني",
-      qar: "ريال قطري",
-      omr: "ريال عماني",
-      nzd: "دولار نيوزلندي",
-      aud: "دولار أسترالي",
-      cad: "دولار كندي"
-    },
-    rating: "التقييم",
-    ratingSuccess: "تم التقييم بنجاح",
-    ratingDescription: "لقد قمت بتقييم المنتج",
-    seller: {
-      rating: "تقييم البائع",
-      totalRatings: "عدد التقييمات",
-      averageRating: "متوسط التقييم"
-    },
+    currency: "ريال",
     buttons: {
       addToCart: "إضافة للسلة",
       share: "مشاركة",
@@ -90,6 +58,24 @@ export const translations = {
     rights: "All Rights Reserved",
     search: "Search products...",
     advertiseHere: "Advertise Here",
+    productTitle: "Product Title",
+    enterProductTitle: "Enter product title",
+    category: "Category",
+    selectCategory: "Select category",
+    price: "Price",
+    enterPrice: "Enter price",
+    description: "Description",
+    productDescription: "Write a detailed description of your product",
+    publishProduct: "Publish Product",
+    exchangeable: "Exchangeable",
+    availableForExchange: "Available for Exchange",
+    whatToExchange: "What would you like to exchange it for?",
+    exchangeDescriptionPlaceholder: "Write what you want in exchange...",
+    exchangeDescriptionHelp: "Write a clear description of what you want in exchange",
+    exchangeEnabled: "Exchange feature enabled",
+    exchangeDisabled: "Exchange feature disabled",
+    exchangeEnabledDesc: "Users can now offer products for exchange",
+    exchangeDisabledDesc: "Exchange feature has been disabled for this product",
     notifications: {
       title: "Notifications",
       noNotifications: "No notifications",
@@ -109,57 +95,7 @@ export const translations = {
       watches: "Watches",
       cameras: "Cameras"
     },
-    searchStatus: {
-      searching: "Searching...",
-      categoryChanged: "Category Updated",
-      searchingIn: "Searching in"
-    },
-    products: {
-      smartphone: {
-        title: "Premium Smartphone",
-        description: "High-end smartphone with advanced features"
-      },
-      laptop: {
-        title: "Professional Laptop",
-        description: "Business-grade laptop for professional use"
-      },
-      headphones: {
-        title: "Wireless Headphones",
-        description: "Premium wireless headphones with superior sound quality"
-      }
-    },
-    currency: {
-      converter: "Currency Converter",
-      convert: "Convert",
-      enterAmount: "Enter amount",
-      invalidAmount: "Invalid Amount",
-      enterValidAmount: "Please enter a valid amount",
-      conversionSuccess: "Conversion Successful",
-      selectCurrency: "Select Currency",
-      from: "From",
-      to: "To",
-      sar: "Saudi Riyal (SAR)",
-      usd: "US Dollar (USD)",
-      eur: "Euro (EUR)",
-      gbp: "British Pound (GBP)",
-      jpy: "Japanese Yen (JPY)",
-      aed: "UAE Dirham (AED)",
-      kwd: "Kuwaiti Dinar (KWD)",
-      bhd: "Bahraini Dinar (BHD)",
-      qar: "Qatari Riyal (QAR)",
-      omr: "Omani Rial (OMR)",
-      nzd: "New Zealand Dollar (NZD)",
-      aud: "Australian Dollar (AUD)",
-      cad: "Canadian Dollar (CAD)"
-    },
-    rating: "Rating",
-    ratingSuccess: "Thank you for rating!",
-    ratingDescription: "You rated this product",
-    seller: {
-      rating: "Seller Rating",
-      totalRatings: "Total Ratings",
-      averageRating: "Average Rating"
-    },
+    currency: "USD",
     buttons: {
       addToCart: "Add to Cart",
       share: "Share",
