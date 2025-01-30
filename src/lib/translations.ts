@@ -28,6 +28,12 @@ export const translations = {
     exchangeDisabled: "تم تعطيل خيار التبادل",
     exchangeEnabledDesc: "يمكن للمستخدمين الآن عرض منتجات للتبادل",
     exchangeDisabledDesc: "تم إلغاء خيار التبادل لهذا المنتج",
+    notifications: {
+      title: "الإشعارات",
+      noNotifications: "لا توجد إشعارات",
+      deleted: "تم حذف الإشعار",
+      deletedAll: "تم حذف جميع الإشعارات"
+    },
     buttons: {
       submit: "إرسال",
       cancel: "إلغاء",
@@ -65,6 +71,12 @@ export const translations = {
     exchangeDisabled: "Exchange option disabled",
     exchangeEnabledDesc: "Users can now offer products for exchange",
     exchangeDisabledDesc: "Exchange option has been disabled for this product",
+    notifications: {
+      title: "Notifications",
+      noNotifications: "No notifications",
+      deleted: "Notification deleted",
+      deletedAll: "All notifications deleted"
+    },
     buttons: {
       submit: "Submit",
       cancel: "Cancel",
