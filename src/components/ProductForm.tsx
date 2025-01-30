@@ -16,6 +16,8 @@ import { LocationInput } from './LocationInput';
 import { RatingSystem } from './RatingSystem';
 import { InteractionButtons } from './InteractionButtons';
 import { SocialShare } from './SocialShare';
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 
 export const ProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -29,6 +31,8 @@ export const ProductForm = () => {
   const [isExchangeable, setIsExchangeable] = useState(false);
   const [exchangeDescription, setExchangeDescription] = useState('');
   const [rating, setRating] = useState(0);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const categories = [
     'إلكترونيات',
@@ -50,30 +54,43 @@ export const ProductForm = () => {
     setIsFavorite(!isFavorite);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', {
+      images,
+      title,
+      category,
+      price,
+      isExchangeable,
+      exchangeDescription,
+      location
+    });
+  };
+
   return (
     <div className="space-y-6 max-w-2xl mx-auto p-6">
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <ImageUpload
           images={imageUrls}
           onImagesChange={handleImagesChange}
         />
 
         <div>
-          <label className="block text-lg mb-2">عنوان المنتج</label>
+          <label className="block text-lg mb-2">{t.productTitle}</label>
           <Input 
-            placeholder="أدخل عنوان المنتج" 
+            placeholder={t.enterProductTitle}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
         <div>
-          <label className="block text-lg mb-2">التصنيف</label>
+          <label className="block text-lg mb-2">{t.category}</label>
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger>
-              <SelectValue placeholder="اختر تصنيف المنتج" />
+              <SelectValue placeholder={t.selectCategory} />
             </SelectTrigger>
             <SelectContent>
               {categories.map((cat) => (
@@ -86,10 +103,10 @@ export const ProductForm = () => {
         </div>
 
         <div>
-          <label className="block text-lg mb-2">السعر</label>
+          <label className="block text-lg mb-2">{t.price}</label>
           <Input
             type="number"
-            placeholder="أدخل السعر"
+            placeholder={t.enterPrice}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -103,8 +120,8 @@ export const ProductForm = () => {
         />
 
         <div>
-          <label className="block text-lg mb-2">الوصف</label>
-          <Textarea placeholder="اكتب وصفاً تفصيلياً للمنتج" rows={5} />
+          <label className="block text-lg mb-2">{t.description}</label>
+          <Textarea placeholder={t.productDescription} rows={5} />
         </div>
 
         <LocationInput location={location} onLocationChange={setLocation} />
@@ -113,7 +130,7 @@ export const ProductForm = () => {
           <RatingSystem rating={rating} onRatingChange={setRating} />
 
           <div className="flex justify-between items-center">
-            <Button type="submit" className="w-1/3">نشر المنتج</Button>
+            <Button type="submit" className="w-1/3">{t.publishProduct}</Button>
             <InteractionButtons 
               isFavorite={isFavorite}
               onFavoriteClick={handleFavoriteClick}
