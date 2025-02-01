@@ -23,8 +23,7 @@ export const ProductFooter = ({
   language,
   rating,
   onRatingChange,
-  seller,
-  formatCurrency
+  seller
 }: ProductFooterProps) => {
   return (
     <div className="mt-auto space-y-3 md:space-y-4">
@@ -33,7 +32,6 @@ export const ProductFooter = ({
           price={price}
           discount={discount}
           language={language}
-          formatCurrency={formatCurrency}
         />
         <RatingSystem
           rating={rating}

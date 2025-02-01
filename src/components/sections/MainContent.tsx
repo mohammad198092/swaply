@@ -15,14 +15,6 @@ import { useLanguage } from "@/lib/language-context";
 export const MainContent = () => {
   const { language } = useLanguage();
 
-  const formatCurrency = (price: number, discount?: number) => {
-    const finalPrice = discount ? price - (price * discount) / 100 : price;
-    return new Intl.NumberFormat(language === 'ar' ? 'ar-SA' : 'en-US', {
-      style: 'currency',
-      currency: 'SAR'
-    }).format(finalPrice);
-  };
-
   return (
     <div className="container px-4 my-8 md:my-12">
       <Card className="mb-8 bg-white dark:bg-gray-800 shadow-lg">
@@ -41,7 +33,6 @@ export const MainContent = () => {
             price={1500}
             discount={10}
             language={language}
-            formatCurrency={formatCurrency}
           />
           <SocialShare
             title="منتج رائع من سوابلي"
