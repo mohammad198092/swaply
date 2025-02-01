@@ -34,6 +34,11 @@ export const translations = {
       deleted: "تم حذف الإشعار",
       deletedAll: "تم حذف جميع الإشعارات"
     },
+    productDetails: {
+      exchangeWith: "يقبل التبادل مع:",
+      description: "الوصف:",
+      noDescription: "لا يوجد وصف متاح"
+    },
     buttons: {
       submit: "إرسال",
       cancel: "إلغاء",
@@ -76,6 +81,11 @@ export const translations = {
       noNotifications: "No notifications",
       deleted: "Notification deleted",
       deletedAll: "All notifications deleted"
+    },
+    productDetails: {
+      exchangeWith: "Accepts exchange with:",
+      description: "Description:",
+      noDescription: "No description available"
     },
     buttons: {
       submit: "Submit",
