@@ -10,22 +10,33 @@ interface LanguageContextType {
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en'); // Changed default to 'en'
+  // استخدام localStorage للحصول على اللغة المحفوظة أو الافتراضية
+  const [language, setLanguage] = useState<Language>(() => {
+    const savedLang = localStorage.getItem('app-language');
+    return (savedLang === 'ar' || savedLang === 'en') ? savedLang : 'en';
+  });
 
   useEffect(() => {
+    // تحديث localStorage عند تغيير اللغة
+    localStorage.setItem('app-language', language);
+    
+    // تحديث اتجاه المستند وخصائص HTML
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
     document.documentElement.className = language === 'ar' ? 'rtl' : 'ltr';
-    console.log('Language set to:', language);
+    
+    // إضافة سجل للتغييرات
+    console.log('تم تحديث إعدادات اللغة:', {
+      language,
+      direction: document.documentElement.dir,
+      storedLanguage: localStorage.getItem('app-language')
+    });
   }, [language]);
 
   const toggleLanguage = () => {
     setLanguage((prevLang) => {
       const newLang = prevLang === 'ar' ? 'en' : 'ar';
-      document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = newLang;
-      document.documentElement.className = newLang === 'ar' ? 'rtl' : 'ltr';
-      console.log('Language toggled to:', newLang);
+      console.log('تم تغيير اللغة من', prevLang, 'إلى', newLang);
       return newLang;
     });
   };
