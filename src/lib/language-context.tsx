@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 
-export type Language = "en" | "ar" | "es";
+// Simplify to only support English
+export type Language = "en";
 
 interface LanguageContextType {
   language: Language;
@@ -12,22 +13,19 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>((localStorage.getItem("language") as Language) || "en");
+  const [language, setLanguage] = useState<Language>("en");
 
   const changeLanguage = (newLang: Language) => {
-    console.log('🌐 تغيير اللغة إلى:', newLang);
+    console.log('🌐 Setting language to:', newLang);
     i18n.changeLanguage(newLang);
     setLanguage(newLang);
     localStorage.setItem("language", newLang);
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    document.documentElement.dir = "ltr";
   };
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("language") as Language;
-    if (savedLang) {
-      console.log('📱 تحميل اللغة المحفوظة:', savedLang);
-      changeLanguage(savedLang);
-    }
+    console.log('📱 Setting default English language');
+    changeLanguage("en");
   }, []);
 
   return (

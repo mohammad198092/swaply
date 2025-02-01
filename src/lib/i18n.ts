@@ -21,54 +21,30 @@ i18n.use(initReactI18next).init({
           share: "Share",
           favorite: "Add to Favorites",
           removeFavorite: "Remove from Favorites"
-        }
-      }
-    },
-    ar: {
-      translation: {
-        welcome: "مرحباً بك في سوابلي",
-        description: "تبادل وبيع منتجاتك بسهولة",
-        categories: {
-          all: "الكل",
-          electronics: "إلكترونيات",
-          computers: "حواسيب",
-          accessories: "اكسسوارات",
-          vehicles: "سيارات",
-          watches: "ساعات",
-          cameras: "كاميرات"
         },
-        actions: {
-          addToCart: "إضافة للسلة",
-          share: "مشاركة",
-          favorite: "إضافة للمفضلة",
-          removeFavorite: "إزالة من المفضلة"
-        }
-      }
-    },
-    es: {
-      translation: {
-        welcome: "Bienvenido a Swaply",
-        description: "Intercambia y vende tus artículos fácilmente",
-        categories: {
-          all: "Todos",
-          electronics: "Electrónicos",
-          computers: "Computadoras",
-          accessories: "Accesorios",
-          vehicles: "Vehículos",
-          watches: "Relojes",
-          cameras: "Cámaras"
+        productDetails: {
+          description: "Description:",
+          noDescription: "No description available",
+          exchangeWith: "Accepts exchange with:"
         },
-        actions: {
-          addToCart: "Añadir al Carrito",
-          share: "Compartir",
-          favorite: "Añadir a Favoritos",
-          removeFavorite: "Quitar de Favoritos"
+        notifications: {
+          title: "Notifications",
+          noNotifications: "No notifications",
+          deleted: "Notification deleted",
+          deletedAll: "All notifications deleted"
+        },
+        buttons: {
+          submit: "Submit",
+          cancel: "Cancel",
+          save: "Save",
+          edit: "Edit",
+          delete: "Delete"
         }
       }
     }
   },
-  lng: localStorage.getItem('language') || 'en',
-  fallbackLng: 'en',
+  lng: "en",
+  fallbackLng: "en",
   interpolation: { escapeValue: false }
 });
 
