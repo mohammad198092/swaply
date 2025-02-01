@@ -1,50 +1,46 @@
 export const translations = {
   en: {
-    title: "Trade & Exchange Platform",
-    subtitle: "Buy, sell and exchange products easily",
-    terms: "Terms & Conditions",
-    rights: "All Rights Reserved",
-    search: "Search",
-    advertiseHere: "Advertise Here",
-    productTitle: "Product Title",
-    enterProductTitle: "Enter product title",
-    category: "Category",
-    selectCategory: "Select category",
-    price: "Price",
-    enterPrice: "Enter price",
-    description: "Description",
-    productDescription: "Product description",
-    publishProduct: "Publish Product",
-    currency: "USD",
-    rating: "Rating",
-    ratingSuccess: "Rating Submitted",
-    ratingDescription: "You rated this product",
-    exchangeable: "Exchangeable",
-    availableForExchange: "Available for Exchange",
-    whatToExchange: "What do you want to exchange?",
-    exchangeDescriptionPlaceholder: "Write what you want in exchange for your product...",
-    exchangeDescriptionHelp: "Write a clear description of what you want in exchange",
-    exchangeEnabled: "Exchange option enabled",
-    exchangeDisabled: "Exchange option disabled",
-    exchangeEnabledDesc: "Users can now offer products for exchange",
-    exchangeDisabledDesc: "Exchange option has been disabled for this product",
+    welcome: "Welcome",
+    categories: {
+      all: "All",
+      electronics: "Electronics",
+      computers: "Computers",
+      accessories: "Accessories",
+      vehicles: "Vehicles",
+      watches: "Watches",
+      cameras: "Cameras"
+    },
     notifications: {
       title: "Notifications",
       noNotifications: "No notifications",
       deleted: "Notification deleted",
       deletedAll: "All notifications deleted"
     },
-    productDetails: {
-      exchangeWith: "Accepts exchange with:",
-      description: "Description:",
-      noDescription: "No description available"
+    currency: "$",
+    rating: "Rating",
+    ratingSuccess: "Rating Updated",
+    ratingDescription: "You rated this item"
+  },
+  ar: {
+    welcome: "مرحباً",
+    categories: {
+      all: "الكل",
+      electronics: "إلكترونيات",
+      computers: "حواسيب",
+      accessories: "اكسسوارات",
+      vehicles: "سيارات",
+      watches: "ساعات",
+      cameras: "كاميرات"
     },
-    buttons: {
-      submit: "Submit",
-      cancel: "Cancel",
-      save: "Save",
-      edit: "Edit",
-      delete: "Delete"
-    }
+    notifications: {
+      title: "الإشعارات",
+      noNotifications: "لا توجد إشعارات",
+      deleted: "تم حذف الإشعار",
+      deletedAll: "تم حذف جميع الإشعارات"
+    },
+    currency: "ريال",
+    rating: "التقييم",
+    ratingSuccess: "تم تحديث التقييم",
+    ratingDescription: "لقد قيمت هذا المنتج"
   }
 };

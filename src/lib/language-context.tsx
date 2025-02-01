@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 
-export type Language = "en";
+export type Language = "en" | "ar";
 
 interface LanguageContextType {
   language: Language;
@@ -19,7 +19,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     i18n.changeLanguage(newLang);
     setLanguage(newLang);
     localStorage.setItem("language", newLang);
-    document.documentElement.dir = "ltr";
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
   };
 
   useEffect(() => {
