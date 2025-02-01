@@ -44,11 +44,6 @@ export const ProductDetails = () => {
     toast.success("تم نسخ رابط المنتج");
   };
 
-  const formatCurrency = (price: number, discount?: number) => {
-    const finalPrice = discount ? price - (price * discount) / 100 : price;
-    return `${finalPrice} ريال`;
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
       <Button 
@@ -125,7 +120,6 @@ export const ProductDetails = () => {
                   price={product.price}
                   discount={product.discount}
                   language={language}
-                  formatCurrency={formatCurrency}
                 />
 
                 <div className="flex items-center justify-between">
