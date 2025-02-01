@@ -14,6 +14,15 @@ export default defineConfig(({ mode }) => ({
       credentials: true
     },
   },
+  preview: {
+    port: 8080,
+    cors: {
+      origin: process.env.VITE_ALLOWED_ORIGIN || '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true
+    },
+  },
   plugins: [
     react(),
     mode === 'development' ? componentTagger() : null, // تحسين شرط إضافة `lovable-tagger`
