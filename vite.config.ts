@@ -5,10 +5,10 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: "0.0.0.0", // استخدام "0.0.0.0" بدلاً من "::" لزيادة التوافق
     port: 8080,
     cors: {
-      origin: '*',
+      origin: mode === 'development' ? '*' : process.env.VITE_ALLOWED_ORIGIN || '*', // تحديد المصدر بناءً على البيئة
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' && componentTagger(),
+    mode === 'development' ? componentTagger() : null, // تحسين شرط إضافة `lovable-tagger`
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -24,11 +24,13 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    sourcemap: true,
+    sourcemap: mode === 'development', // تعطيل sourcemaps في الإنتاج لتحسين الأداء
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // فصل مكتبات الطرف الثالث لتسريع التحميل
+          }
         },
       },
     },
