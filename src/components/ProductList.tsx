@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { ProductCard } from "./ProductCard";
 import { useLanguage } from '@/lib/language-context';
 import { LoadingState } from './LoadingState';
-import { Language } from '@/lib/language-context';
+import type { Language } from '@/lib/language-context';
 
 interface Product {
   id: number;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { I18nextProvider, useTranslation } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 
 export type Language = "en" | "ar" | "es";
@@ -15,6 +15,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>((localStorage.getItem("language") as Language) || "en");
 
   const changeLanguage = (newLang: Language) => {
+    console.log('🌐 تغيير اللغة إلى:', newLang);
     i18n.changeLanguage(newLang);
     setLanguage(newLang);
     localStorage.setItem("language", newLang);
@@ -24,6 +25,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedLang = localStorage.getItem("language") as Language;
     if (savedLang) {
+      console.log('📱 تحميل اللغة المحفوظة:', savedLang);
       changeLanguage(savedLang);
     }
   }, []);
