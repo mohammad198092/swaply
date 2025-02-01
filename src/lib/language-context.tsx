@@ -10,22 +10,19 @@ interface LanguageContextType {
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  // استخدام localStorage للحصول على اللغة المحفوظة أو الافتراضية
+  // Initialize language from localStorage or default to 'en'
   const [language, setLanguage] = useState<Language>(() => {
     const savedLang = localStorage.getItem('app-language');
     return (savedLang === 'ar' || savedLang === 'en') ? savedLang : 'en';
   });
 
   useEffect(() => {
-    // تحديث localStorage عند تغيير اللغة
+    // Update localStorage and document properties
     localStorage.setItem('app-language', language);
-    
-    // تحديث اتجاه المستند وخصائص HTML
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
     document.documentElement.className = language === 'ar' ? 'rtl' : 'ltr';
     
-    // إضافة سجل للتغييرات
     console.log('تم تحديث إعدادات اللغة:', {
       language,
       direction: document.documentElement.dir,
@@ -48,6 +45,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Custom hook for using language context
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
