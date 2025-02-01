@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { LanguageProvider } from '@/lib/language-context';
-import './lib/i18n'; // Import i18n configuration
+import './lib/i18n';
 
 createRoot(document.getElementById("root")!).render(
   <LanguageProvider>
