@@ -1,54 +1,37 @@
-import { createContext, useState, ReactNode, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type Language = 'ar' | 'en';
+export type Language = 'ar' | 'en' | 'fr' | 'es' | 'ja' | 'zh';
 
 interface LanguageContextType {
   language: Language;
-  toggleLanguage: () => void;
+  setLanguage: (lang: Language) => void;
 }
 
-export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize language from localStorage or default to 'en'
+export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    const savedLang = localStorage.getItem('app-language');
-    return (savedLang === 'ar' || savedLang === 'en') ? savedLang : 'en';
+    const savedLang = localStorage.getItem('language');
+    return (savedLang as Language) || 'ar';
   });
 
   useEffect(() => {
-    // Update localStorage and document properties
-    localStorage.setItem('app-language', language);
+    localStorage.setItem('language', language);
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
-    document.documentElement.className = language === 'ar' ? 'rtl' : 'ltr';
-    
-    console.log('تم تحديث إعدادات اللغة:', {
-      language,
-      direction: document.documentElement.dir,
-      storedLanguage: localStorage.getItem('app-language')
-    });
+    console.log('تم تغيير اللغة إلى:', language);
   }, [language]);
 
-  const toggleLanguage = () => {
-    setLanguage((prevLang) => {
-      const newLang = prevLang === 'ar' ? 'en' : 'ar';
-      console.log('تم تغيير اللغة من', prevLang, 'إلى', newLang);
-      return newLang;
-    });
-  };
-
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
-// Custom hook for using language context
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
