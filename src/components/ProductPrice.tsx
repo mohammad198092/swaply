@@ -1,40 +1,56 @@
+import { formatCurrency } from "@/lib/utils";
+
 interface ProductPriceProps {
   price: number;
   discount?: number;
   language: string;
-  formatCurrency: (price: number, discount?: number) => string;
 }
 
-export const ProductPrice = ({ price, discount, language, formatCurrency }: ProductPriceProps) => {
-  const originalPrice = discount ? price - (price * discount / 100) : price;
-  const adminFee = originalPrice * 0.02; // 2% admin fee
-  const sellerAmount = originalPrice - adminFee;
-
-  console.log('Price breakdown:', {
-    originalPrice,
-    adminFee,
-    sellerAmount,
-    discount
-  });
+export const ProductPrice = ({ price, discount, language }: ProductPriceProps) => {
+  const calculateFinalPrice = (originalPrice: number, discountPercentage?: number) => {
+    console.log('💰 حساب السعر:', { price: originalPrice, discount: discountPercentage });
+    
+    const priceAfterDiscount = discountPercentage 
+      ? originalPrice - (originalPrice * discountPercentage / 100) 
+      : originalPrice;
+      
+    const adminFee = priceAfterDiscount * 0.02;
+    const finalPrice = priceAfterDiscount + adminFee;
+    
+    console.log('📊 تفاصيل السعر:', {
+      سعر_أصلي: originalPrice,
+      خصم: discountPercentage,
+      سعر_بعد_الخصم: priceAfterDiscount,
+      رسوم_إدارية: adminFee,
+      سعر_نهائي: finalPrice
+    });
+    
+    return formatCurrency(finalPrice, language);
+  };
 
   return (
-    <div className="space-y-1">
-      <p className="text-lg font-bold text-primary">
-        {language === 'ar' ? 'السعر النهائي:' : 'Final Price:'} {formatCurrency(originalPrice)}
-      </p>
-      <div className="text-sm text-gray-500 space-y-0.5">
-        {discount && (
-          <p className="line-through">
-            {language === 'ar' ? 'السعر الأصلي:' : 'Original Price:'} {formatCurrency(price)}
-          </p>
+    <div className="flex flex-col items-start gap-1">
+      <div className="flex items-center gap-2">
+        {discount ? (
+          <>
+            <span className="text-lg font-bold text-primary">
+              {calculateFinalPrice(price, discount)}
+            </span>
+            <span className="text-sm text-gray-500 line-through">
+              {calculateFinalPrice(price)}
+            </span>
+          </>
+        ) : (
+          <span className="text-lg font-bold text-primary">
+            {calculateFinalPrice(price)}
+          </span>
         )}
-        <p className="text-xs">
-          {language === 'ar' ? 'مبلغ البائع:' : "Seller's Amount:"} {formatCurrency(sellerAmount)}
-        </p>
-        <p className="text-xs text-primary-600">
-          {language === 'ar' ? 'رسوم إدارية (2%):' : 'Admin fee (2%):'} {formatCurrency(adminFee)}
-        </p>
       </div>
+      {discount && (
+        <span className="text-sm text-green-600">
+          {language === 'ar' ? `خصم ${discount}%` : `${discount}% OFF`}
+        </span>
+      )}
     </div>
   );
 };
